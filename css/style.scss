@@ -1,0 +1,289 @@
+@use 'fonts-size';
+
+:root {
+    // solid
+    --solid-purple: #48319D;
+    --solid-dark-gray: #1F1D47;
+    --solid-pink: #C427FB;
+    --solid-gray: #E0D9FF;
+    // linear
+    --linear-black: linear-gradient(#2E335A 0%, #1C1B33 100%);
+    --linear-purple: linear-gradient(#5936B4 0%, #362A84 100%);
+    --linear-blue-pink: linear-gradient(90deg, #3658B1 0%, #C159EC 100%);
+    --linear-light-dark-blue: linear-gradient(180deg, rgba(174, 201, 255, 1) 0%, rgba(174, 201, 255, 1) 55%, rgba(8, 48, 114, 1) 55%);
+    --linear-active-btn: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+    // radial
+    --radial-bg-extra: radial-gradient(circle, rgba(69, 39, 139, 1) 0%, rgba(46, 51, 90, 1) 100%);
+    --radial-pink: radial-gradient(#F7CBFD 0%, #7758D1 100%);
+    // theme-dark
+    --color-primary: #FFFFFF;
+    --color-secondary: rgba(235, 235, 245, 0.6);
+    --color-tertiary: rgba(235, 235, 245, 0.3);
+    --color-quaternary: rgba(235, 235, 245, 0.18);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.all-container {
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    height: 67.5rem;
+}
+
+// buttons = null
+
+button {
+    cursor: pointer;
+    border: none;
+    background-color: rgba($color: #000000, $alpha: 0);
+}
+
+// main
+
+.main {
+
+    &__background {
+        background-image: url(/img/main-page/main-bacground.png);
+        background-repeat: no-repeat;
+        background-size: 58.3125rem, 67.5rem;
+        width: 58.3125rem;
+        height: 67.5rem;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+    }
+
+    &__house {
+        margin-bottom: -40px;
+    }
+
+    &__house img {
+        width: 562px;
+        height: 562px;
+    }
+
+    &__bar {
+        background-image: url(/img/main-page/bg-bar.png);
+        background-repeat: no-repeat;
+        background-size: 562px, 287px;
+        width: 562px;
+        height: 211px;
+        padding: 0 55px 120px 55px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.bar {
+
+    &__plus {
+        background-image: url(/img/main-page/bg-bar-plus.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 250px;
+        height: 125px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__side img {
+        width: 30px;
+        cursor: pointer;
+    }
+
+    &__plus img {
+        cursor: pointer;
+        margin-top: -20px;
+        width: 100px;
+        height: auto;
+    }
+
+}
+
+// forecast
+
+.forecast {
+
+    // &__background {}
+
+    &__wrapper {
+        width: 987px;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+    }
+
+    // future
+
+    &__future {
+        background: var(--linear-black);
+        // height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__future-buttons {
+        margin-top: 30px;
+        width: 390px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 32px;
+        border-bottom: 2px solid;
+        border-color: rgba($color: #FFFFFF, $alpha: .3);
+        box-shadow: 0px 2px 0px rgba($color: #000000, $alpha: .2);
+    }
+
+    &__future-btn {
+        border-bottom: 3px solid rgba($color: #000000, $alpha: .0);
+        color: var(--color-secondary);
+        padding-bottom: 2px;
+        margin-bottom: -1px;
+    }
+
+    &__future-btn:active {
+        border-bottom: 3px solid;
+        border-image: var(--linear-active-btn);
+        border-image-slice: 1;
+    }
+
+    &__future-cards {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__future-card {
+        margin: 0 12px;
+        width: 103px;
+        height: 230px;
+        border: 1px solid rgba($color: #FFFFFF, $alpha: .2);
+        border-radius: 51px;
+        background-color: rgba($color: var(--solid-purple), $alpha: .2);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+    }
+
+    &__future-card--highlighted {
+        background-color: var(--solid-purple);
+    }
+
+    &__future-card-picture img {
+        width: 64px;
+    }
+
+    // extra
+
+    &__extra {
+        padding: 32px;
+        background: var(--radial-bg-extra);
+        height: 100%;
+    }
+
+    &__extra-wrapper {
+        display: grid;
+        grid-template-columns: repeat(4, 221.5px);
+        grid-template-rows: repeat(3, 221.5px);
+        row-gap: 10px;
+        justify-content: space-between;
+    }
+
+    &__extra-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        background: var(--linear-black);
+        padding: 17px;
+        border: 1px solid rgba($color: #FFFFFF, $alpha: .5);
+        border-radius: 22px
+    }
+
+    &__extra-card--m {
+        grid-column-start: 1;
+        grid-column-end: span 2
+    }
+
+    &__extra-card--s {
+        grid-column-end: span 1;
+    }
+
+    &__extra-card-subtitle {
+        width: 100%;
+    }
+
+    &__extra-card-subtitle-chart {
+        width: 100%;
+        height: 4px;
+        background-image: var(--linear-blue-pink);
+        border-radius: 22px;
+        position: relative;
+    }
+
+    &__extra-card-subtitle-chart-point {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        border:none;
+        background-color: var(--color-primary);
+        left: 50%;
+        top: calc(50% - 5px);
+    }
+
+    &__wind-bg {
+        background-image: url(/img/main-page/WIND.png);
+        background-repeat: no-repeat;
+        background-size: 114px 114px;
+        width: 114px;
+        height: 114px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__extra-card-subtitle--center{
+        display: flex;
+        justify-content: center;
+    }
+
+    &__wind-bg p {
+        width: 50px;
+        position: absolute;
+        left: calc(50% - 25px);
+        text-align: center;
+    }
+
+}
