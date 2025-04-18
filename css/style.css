@@ -80,7 +80,7 @@ button {
 }
 
 .main__background {
-  background-image: url(/img/main-page/main-bacground.png);
+  background-image: url(../img/main-page/main-bacground.png);
   background-repeat: no-repeat;
   background-size: 58.3125rem, 67.5rem;
   width: 58.3125rem;
@@ -100,7 +100,7 @@ button {
   height: 562px;
 }
 .main__bar {
-  background-image: url(/img/main-page/bg-bar.png);
+  background-image: url(../img/main-page/bg-bar.png);
   background-repeat: no-repeat;
   background-size: 562px, 287px;
   width: 562px;
@@ -112,7 +112,7 @@ button {
 }
 
 .bar__plus {
-  background-image: url(/img/main-page/bg-bar-plus.png);
+  background-image: url(../img/main-page/bg-bar-plus.png);
   background-repeat: no-repeat;
   background-size: contain;
   width: 250px;
@@ -240,7 +240,7 @@ button {
   top: calc(50% - 5px);
 }
 .forecast__wind-bg {
-  background-image: url(/img/main-page/WIND.png);
+  background-image: url(../img/main-page/WIND.png);
   background-repeat: no-repeat;
   background-size: 114px 114px;
   width: 114px;
