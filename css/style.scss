@@ -254,7 +254,7 @@ button {
         width: 10px;
         height: 10px;
         border-radius: 100%;
-        border:none;
+        border: none;
         background-color: var(--color-primary);
         left: 50%;
         top: calc(50% - 5px);
@@ -274,7 +274,7 @@ button {
         justify-content: center;
     }
 
-    &__extra-card-subtitle--center{
+    &__extra-card-subtitle--center {
         display: flex;
         justify-content: center;
     }
@@ -286,4 +286,27 @@ button {
         text-align: center;
     }
 
+}
+
+
+
+
+
+
+
+
+// временно
+
+
+.main {
+
+    &__town-title {
+        color: #fff;
+        font-size: 3rem;
+    }
+
+    &__temp-title{
+        color: #fff;
+        font-size: 4rem;
+    }
 }
