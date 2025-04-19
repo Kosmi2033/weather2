@@ -1,116 +1,72 @@
-'use stric'
+'use strict';
 
-const API = '20389b41cdb4f698ad133287046846cf'
+const API_KEY = '20389b41cdb4f698ad133287046846cf';
 
-// const cityInput = document.getElementById('city');
-// const getWeatherButton = document.getElementById('getWeather');
-// const weatherResult = document.getElementById('weatherResult');
+const cityEl = document.getElementById('city'); // Элемент для имени города
+const tempEl = document.getElementById('temp'); // Элемент для температуры
 
-
-
-const city = 'moscow';
-let strCity = document.getElementById('city');
-let strTemp = document.getElementById('temp');
+let currentCity = null; // Хранит последний успешно полученный город
 
 
+async function getWeather(cityName) {
+  try {
+    let lat, lon;
 
 
-
-async function getWeather() {
-
-
-
-
-    let lat =0 , lon= 0 ;
-
-    const geoCoder = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=20389b41cdb4f698ad133287046846cf`;
-
-    const respons = await fetch(geoCoder);
-
-    if (!respons.ok) {
-        // weatherResult.textContent = "Такого Города Нема!!!! Придурок "
-        console.error('пизда не рабюоате !!!!!!!')
-    }
-
-    const dataCoord = await respons.json();
-
-    getLocation();
-
-    function getLocation() {
-        // Если геолокация поддерживается браузером
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            console.log("Геолокация не поддерживается.");
-            lat = dataCoord[0].lat;
-            lon = dataCoord[0].lon;
-        }
-    }
-
-    function showPosition(position) {
+    if (cityName === null) {
+      try {
+        const position = await new Promise((resolve, reject) => {
+          if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+          } else {
+            reject(new Error('Геолокация недоступна'));
+          }
+        });
+        
         lat = position.coords.latitude;
         lon = position.coords.longitude;
-        // console.log("Широта: " + lat + "<br>Долгота: " + lon);
+      } catch (err) {
+
+        cityName = 'Москва';
+      }
     }
 
-    // console.log(dataCoord)
+    if (typeof cityName === 'string') {
+      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${API_KEY}`;
+      const coordResponse = await fetch(geoUrl);
+      
+      if (!coordResponse.ok) {
+        throw new Error(`Ошибка при поиске города "${cityName}"`);
+      }
 
+      const coordsData = await coordResponse.json();
 
+      if (!coordsData.length || !coordsData[0]) {
+        throw new Error("Координаты не найдены");
+      }
 
-    strCity.textContent = await dataCoord[0].local_names.ru
-    console.log(lat, lon)
+      ({ lat, lon } = coordsData[0]);
+    }
 
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+    const weatherResponse = await fetch(weatherUrl);
 
-    const forecast = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=20389b41cdb4f698ad133287046846cf`
+    if (!weatherResponse.ok) {
+      throw new Error(`Ошибка при загрузке погоды для указанных координат (${lat},${lon})`);
+    }
 
-    const responsForecats = await fetch(forecast);
+    const weatherData = await weatherResponse.json();
 
-    const dataForecats = await responsForecats.json()
+    currentCity = `${weatherData.name}, ${weatherData.sys.country}`;
 
-    console.log(dataForecats)
-    strTemp.textContent = Math.round(dataForecats.list[0].main.temp - 273) + ' °C';
+    cityEl.textContent = currentCity;
+    tempEl.textContent = `${Math.round(weatherData.main.temp)}°C`;
+
+  } catch (err) {
+    console.error(err.message);
+    alert(err.message); 
+  }
 }
 
 
-getWeather();
-
-// getWeatherButton.addEventListener('click', getWeather);
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const city = cityInput.value.trim(); // Получаем введённый город
-//   if (!city) {
-//       weatherResult.textContent = 'Введите название города! ❌';
-//       return;
-//   }
-
-// const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=20389b41cdb4f698ad133287046846cf&units=metric`;
-
-//   try {
-//       const response = await fetch(url); // Отправляем запрос
-
-//       if (!response.ok) {
-//         weatherResult.textContent = "Нет такого города"
-//           throw new Error('Город не найден ⚠');
-//       }
-
-//       const data = await response.json(); // Получаем ответ в формате JSON
-//       const temperature = data.main.temp; // Извлекаем температуру
-//       const description = data.weather[0].description; // Описание погоды
-
-//       // Показываем результат
-//       console.log(data)
-//       weatherResult.textContent = `В городе ${city} сейчас ${temperature} ℃, ${description}.`;
-//   } catch (error) {
-//       weatherResult.textContent = error.message;
-//   }
+getWeather(null); 
