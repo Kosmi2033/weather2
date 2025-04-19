@@ -262,3 +262,12 @@ button {
   left: calc(50% - 25px);
   text-align: center;
 }
+
+.main__town-title {
+  color: #fff;
+  font-size: 3rem;
+}
+.main__temp-title {
+  color: #fff;
+  font-size: 4rem;
+}
