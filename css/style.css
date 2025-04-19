@@ -58,8 +58,8 @@ body {
 }
 
 .all-container {
-  width: 1920px;
-  height: 1080px;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: space-between;
 }
@@ -70,7 +70,7 @@ body {
 }
 
 .wrapper {
-  height: 67.5rem;
+  height: 100vh;
 }
 
 button {
@@ -82,9 +82,9 @@ button {
 .main__background {
   background-image: url(../img/main-page/main-bacground.png);
   background-repeat: no-repeat;
-  background-size: 58.3125rem, 67.5rem;
-  width: 58.3125rem;
-  height: 67.5rem;
+  background-size: 100vh, 48vw;
+  width: 48.59vw;
+  height: 100vh;
 }
 .main__wrapper {
   display: flex;
@@ -93,19 +93,19 @@ button {
   align-items: center;
 }
 .main__house {
-  margin-bottom: -40px;
+  margin-bottom: -3.7vh;
 }
 .main__house img {
-  width: 562px;
-  height: 562px;
+  width: 29.27vw;
+  height: 52.04vh;
 }
 .main__bar {
   background-image: url(../img/main-page/bg-bar.png);
   background-repeat: no-repeat;
-  background-size: 562px, 287px;
-  width: 562px;
-  height: 211px;
-  padding: 0 55px 120px 55px;
+  background-size: 29.27vw, 26.57vh;
+  width: 29.27vw;
+  height: 19.54vh;
+  padding: 0 2.86vw 11.11vh 2.86vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -115,25 +115,25 @@ button {
   background-image: url(../img/main-page/bg-bar-plus.png);
   background-repeat: no-repeat;
   background-size: contain;
-  width: 250px;
-  height: 125px;
+  width: 13.02vw;
+  height: 11.57vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .bar__side img {
-  width: 30px;
+  width: 1.56vw;
   cursor: pointer;
 }
 .bar__plus img {
   cursor: pointer;
-  margin-top: -20px;
-  width: 100px;
+  margin-top: -1.85vh;
+  width: 5.21vw;
   height: auto;
 }
 
 .forecast__wrapper {
-  width: 987px;
+  width: 51.41vw;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -146,12 +146,12 @@ button {
   align-items: center;
 }
 .forecast__future-buttons {
-  margin-top: 30px;
-  width: 390px;
+  margin-top: 2.78vh;
+  width: 20.31vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 32px;
+  padding: 0 2.96vw;
   border-bottom: 2px solid;
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
@@ -172,9 +172,9 @@ button {
   justify-content: space-between;
 }
 .forecast__future-card {
-  margin: 0 12px;
-  width: 103px;
-  height: 230px;
+  margin: 0 1.11vw;
+  width: 5.36vw;
+  height: 21.3vh;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 51px;
   background-color: rgba(var(--solid-purple), 0.2);
@@ -182,24 +182,24 @@ button {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0;
+  padding: 1.48vh 0;
 }
 .forecast__future-card--highlighted {
   background-color: var(--solid-purple);
 }
 .forecast__future-card-picture img {
-  width: 64px;
+  width: 3.33vw;
 }
 .forecast__extra {
-  padding: 32px;
+  padding: 2.96vh 1.67vw;
   background: var(--radial-bg-extra);
   height: 100%;
 }
 .forecast__extra-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 221.5px);
-  grid-template-rows: repeat(3, 221.5px);
-  row-gap: 10px;
+  grid-template-columns: repeat(4, 11.54vw);
+  grid-template-rows: repeat(2, 11.54vw);
+  row-gap: 0.93vh;
   justify-content: space-between;
 }
 .forecast__extra-card {
@@ -208,7 +208,7 @@ button {
   justify-content: start;
   align-items: start;
   background: var(--linear-black);
-  padding: 17px;
+  padding: 1.57vh 0.89vw;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 22px;
 }
@@ -242,15 +242,18 @@ button {
 .forecast__wind-bg {
   background-image: url(../img/main-page/WIND.png);
   background-repeat: no-repeat;
-  background-size: 114px 114px;
-  width: 114px;
-  height: 114px;
+  background-size: 5.94vw 5.94vw;
+  width: 5.94vw;
+  height: 5.94vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: relative;
   display: flex;
   justify-content: center;
+}
+.forecast__wind-arrow img {
+  width: 6.5vw;
 }
 .forecast__extra-card-subtitle--center {
   display: flex;

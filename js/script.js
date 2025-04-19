@@ -60,7 +60,7 @@ async function getWeather(cityName) {
     currentCity = `${weatherData.name}, ${weatherData.sys.country}`;
 
     cityEl.textContent = currentCity;
-    tempEl.textContent = `${Math.round(weatherData.main.temp)}°C`;
+    tempEl.textContent = `${Math.round(weatherData.main.temp)} °C`;
 
   } catch (err) {
     console.error(err.message);
