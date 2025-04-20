@@ -142,6 +142,7 @@ button {
     // future
 
     &__future {
+        // height: 39.04vh;
         background: var(--linear-black);
         display: flex;
         flex-direction: column;
@@ -151,7 +152,22 @@ button {
         position: relative;
     }
 
+    &__future-background-img1{
+        z-index: 0;
+        position: absolute;
+        left: 25%;
+    }
+
+    // blur
+    &__future-background-img2{
+        position: absolute;
+        top: -75%;
+        right: 50%;
+    }
+    // blur
+
     &__future-buttons {
+        z-index: 2;
         margin-top: 2.78vh;
         width: 20.31vw;
         display: flex;
@@ -170,16 +186,18 @@ button {
         margin-bottom: -1px;
     }
 
-    &__future-btn:active {
+    &__future-btn--active {
         border-bottom: 3px solid;
         border-image: var(--linear-active-btn);
         border-image-slice: 1;
     }
 
     &__future-cards {
+        height: 45vh;
         width: 51.41vw;
         display: flex;
         // justify-content: space-between;
+        align-items: center;
         transition: transform 0.5s ease-in-out;
         // overflow: hidden;
         // position: relative;
@@ -188,21 +206,14 @@ button {
     &__future-cards-hourly {
         width: 100%;
         display: flex;
-        justify-content: space-between;
-        flex-shrink: 0;
-    }
-
-    &__future-cards-weekly {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         flex-shrink: 0;
     }
 
     &__future-card {
         margin: 0 1.11vw;
         width: 5.36vw;
-        height: 21.3vh;
+        height: 22.3vh;
         border: 1px solid rgba($color: #FFFFFF, $alpha: .2);
         border-radius: 2.66vw;
         background-color: rgba($color: var(--solid-purple), $alpha: .2);
@@ -267,7 +278,7 @@ button {
 
     &__extra-card-subtitle-chart {
         width: 100%;
-        height: 4px;
+        height: 0.7vh;
         background-image: var(--linear-blue-pink);
         border-radius: 22px;
         position: relative;
