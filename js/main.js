@@ -152,18 +152,69 @@ async function getWeather(cityName) {
       const rainEl24 = document.getElementById('forecast__extra-card-subtitle-rainSub')
 
       if (!weatherData.list[3].rain) {
-        console.log('123')
         rainEl.innerHTML = '0 mm' + '<br>' + 'in last 3 hour'
         rainEl24.innerHTML = '0 mm expend in' + '<br>' + 'next 24h'
       } else {
         rainEl.innerHTML = weatherData.list[3].rain + '<br>' + 'in last 3 hour'
-        rainEl24.innerHTML = Math.round(weatherData.list[3].rain + weatherData.list[4].rain + weatherData.list[5].rain + weatherData.list[6].rain + weatherData.list[7].rain) + '<br>' + 'next 12h'
+        rainEl24.innerHTML = Math.round(weatherData.list[3].rain + weatherData.list[4].rain + weatherData.list[5].rain + weatherData.list[6].rain + weatherData.list[7].rain) + '<br>' + 'next 12h.'
       }
     }
 
     // feel like
 
-    
+    likes()
+    function likes() {
+
+      const likesEl = document.getElementById('forecast__extra-card-subtitle-likes');
+      const likesElTxt = document.getElementById('forecast__extra-card-subtitle-likes-txt');
+
+      likesEl.textContent = Math.round(weatherData.list[0].main.feels_like - 273);
+
+      if (weatherData.list[0].wind.speed > 10) {
+        likesElTxt.textContent = "With wind";
+      }
+      if (weatherData.list[0].main.humidity > 70) {
+        likesElTxt.innerHTML = 'With humidity'
+      }
+      if (weatherData.list[0].clouds.all > 50) {
+        likesElTxt.textContent = "With cloud cover";
+      } else {
+        likesElTxt.innerHTML = "Similar to the actual<br>temperature.";
+      }
+    }
+
+    // humidity
+
+    hum()
+    function hum() {
+      const humidityEl = document.getElementById('forecast__extra-card-subtitle-hum')
+      const humidityElTxt = document.getElementById('forecast__extra-card-subtitle-hum-txt')
+
+      humidityEl.textContent = weatherData.list[0].main.humidity + '%'
+
+      if (weatherData.list[0].main.humidity >= 40 && weatherData.list[0].main.humidity <= 60) {
+        humidityElTxt.textContent = 'Comfortable conditions'
+      }
+      if (weatherData.list[0].main.humidity < 40) {
+        humidityElTxt.textContent = 'Dry air'
+      }
+      else if (weatherData.list[0].main.humidity > 60) {
+        humidityElTxt.textContent = 'Humid air'
+      }
+    }
+
+    // visibility
+
+    visubility()
+
+    function visubility(){
+      console.log('123')
+
+      const visEl = document.getElementById('forecast__extra-card-subtitle-vis')
+console.log('123')
+      visEl.textContent =Math.round( weatherData.list[0].visibility / 1000) + ' km'
+    }
+
     // Forecast - card
 
     forecast()
