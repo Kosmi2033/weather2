@@ -60,11 +60,12 @@ button {
 // main
 
 .main {
+    z-index: 99;
 
     &__background {
         background-image: url(../img/main-page/main-bacground.png);
         background-repeat: no-repeat;
-        background-size:  100vh,48vw;
+        background-size: 100vh, 48vw;
         width: 48.59vw;
         height: 100vh;
     }
@@ -91,7 +92,7 @@ button {
         background-size: 29.27vw, 26.57vh;
         width: 29.27vw;
         height: 19.54vh;
-        padding: 0  2.86vw 11.11vh 2.86vw;
+        padding: 0 2.86vw 11.11vh 2.86vw;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -146,6 +147,8 @@ button {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+        overflow: hidden;
+        position: relative;
     }
 
     &__future-buttons {
@@ -174,8 +177,26 @@ button {
     }
 
     &__future-cards {
+        width: 51.41vw;
+        display: flex;
+        // justify-content: space-between;
+        transition: transform 0.5s ease-in-out;
+        // overflow: hidden;
+        // position: relative;
+    }
+
+    &__future-cards-hourly {
+        width: 100%;
         display: flex;
         justify-content: space-between;
+        flex-shrink: 0;
+    }
+
+    &__future-cards-weekly {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-shrink: 0;
     }
 
     &__future-card {
@@ -183,13 +204,14 @@ button {
         width: 5.36vw;
         height: 21.3vh;
         border: 1px solid rgba($color: #FFFFFF, $alpha: .2);
-        border-radius: 51px;
+        border-radius: 2.66vw;
         background-color: rgba($color: var(--solid-purple), $alpha: .2);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
         padding: 1.48vh 0;
+
     }
 
     &__future-card--highlighted {
@@ -219,10 +241,10 @@ button {
     &__extra-card {
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: space-around;
         align-items: start;
         background: var(--linear-black);
-        padding: 1.57vh 0.89vw;
+        padding: 0.89vw;
         border: 1px solid rgba($color: #FFFFFF, $alpha: .5);
         border-radius: 22px
     }
@@ -238,6 +260,9 @@ button {
 
     &__extra-card-subtitle {
         width: 100%;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
     }
 
     &__extra-card-subtitle-chart {
@@ -262,9 +287,9 @@ button {
     &__wind-bg {
         background-image: url(../img/main-page/WIND.png);
         background-repeat: no-repeat;
-        background-size: 5.94vw 5.94vw;
-        width: 5.94vw;
-        height: 5.94vw;
+        background-size: 6.94vw 6.94vw;
+        width: 6.94vw;
+        height: 6.94vw;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -273,8 +298,9 @@ button {
         justify-content: center;
     }
 
-    &__wind-arrow img{
-        width: 6.5vw;
+    &__wind-arrow img {
+        // transform: rotate(45deg);
+        width: 7.7vw;
     }
 
     &__extra-card-subtitle--center {
@@ -308,7 +334,7 @@ button {
         font-size: 3rem;
     }
 
-    &__temp-title{
+    &__temp-title {
         color: #fff;
         font-size: 4rem;
     }
