@@ -63,6 +63,9 @@ async function getWeather(cityName) {
     cityEl.textContent = currentCity;
     tempEl.textContent = `${Math.round(weatherData.list[0].main.temp - 273)} °C`;
 
+    document.getElementById('bar__location-btn').addEventListener('click', () => {
+      getWeather(null); // Вызываем функцию с null, чтобы использовать геолокацию
+    });
 
     // Air quality
 
