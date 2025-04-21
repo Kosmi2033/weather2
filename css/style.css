@@ -55,6 +55,8 @@ h6 {
 body {
   display: flex;
   justify-content: center;
+  font-family: "SF-Pro-Display--Semibold";
+  color: var(--color-primary);
 }
 
 .all-container {
