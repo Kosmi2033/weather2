@@ -29,11 +29,11 @@
                         </div>
                         <div class="main__bar">
                             <div class="bar__location">
-                                <button id="bar__location-btn" class="bar__side bar__location-btn"><img src="img/main-page/Geo.png"
-                                        alt="Determine my geographical position"></button>
+                                <button id="bar__location-btn" class="bar__side bar__location-btn"><img
+                                        src="img/main-page/Geo.png" alt="Determine my geographical position"></button>
                             </div>
                             <div class="bar__plus">
-                                <button class="bar__plus-btn"><img src="img/main-page/plus-btn/Property 1=Default.png"
+                                <button onclick="addCity()" class="bar__plus-btn"><img src="img/main-page/plus-btn/Property 1=Default.png"
                                         alt=""></button>
                             </div>
                             <div class="bar__menu">
@@ -227,7 +227,8 @@
                                         <p id="forecast__extra-card-subtitle-air">3-Low Health Risk</p>
                                     </div>
                                     <div class="forecast__extra-card-subtitle-chart">
-                                        <div id="forecast__extra-card-subtitle-chart-point-air" class="forecast__extra-card-subtitle-chart-point"></div>
+                                        <div id="forecast__extra-card-subtitle-chart-point-air"
+                                            class="forecast__extra-card-subtitle-chart-point"></div>
                                     </div>
                                 </div>
 
@@ -239,7 +240,8 @@
                                         <p id="forecast__extra-card-subtitle-uv">asdf</p>
                                     </div>
                                     <div class="forecast__extra-card-subtitle-chart">
-                                        <div id="forecast__extra-card-subtitle-chart-point-uv" class="forecast__extra-card-subtitle-chart-point"></div>
+                                        <div id="forecast__extra-card-subtitle-chart-point-uv"
+                                            class="forecast__extra-card-subtitle-chart-point"></div>
                                     </div>
                                 </div>
 
@@ -250,7 +252,8 @@
                                     <div class="forecast__extra-card-subtitle forecast__extra-card-subtitle--center">
                                         <div class="forecast__wind-bg">
                                             <div class="forecast__wind-arrow">
-                                                <img id="forecast__wind-arrow" src="img/main-page/Wind-arrow.png" alt="compass flaps">
+                                                <img id="forecast__wind-arrow" src="img/main-page/Wind-arrow.png"
+                                                    alt="compass flaps">
                                             </div>
                                             <p id="forecast__wind">9</p>
                                         </div>
@@ -305,17 +308,49 @@
             </div>
         </section>
 
-        <section class="city">
-            <div class="backgroung">
-                <div class="container">
-                    <div class="wrapper">
+        <section id="citySect" class="city">
+            <div class="backgroung city__background">
+                <div class="container city__container">
+                    <div class="wrapper city__wrapper">
+                        <div class="city__panel">
+                            <div onclick="backAddCity()" class="city__panel-back-btn">
+                                <img src="img/main-page/chevron.left.png" alt="Arrow left">
+                                <p>Weather</p>
+                            </div>
+                            <div class="city__panel-option-btn">
+                                <img src="img/main-page/three-point.png" alt="Button menu">
+                            </div>
+                        </div>
+                        <div class="city__search">
+                            <input type="text" placeholder="Serch for a city">
+                        </div>
+                        <div class="city__cards">
 
+                            <div class="city__card">
+                                <div class="city__card-main-inf">
+                                    <p>19</p>
+                                    <div class="city__card-main-inf-bottom">
+                                        <div class="city__card-main-inf-bottom-s">
+                                            <p>H:24</p>
+                                            <p>L:18</p>
+                                        </div>
+                                        <p>Monreal, Canada</p>
+                                    </div>
+                                </div>
+                                <div class="city__card-add-inf">
+                                    <img class="city__card-add-inf-img" src="img/icon/Moon cloud fast wind.png" alt="img weather">
+                                    <button onclick="addCard()"><img src="img/main-page/stars/star-befor.png" alt=""></button>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
+    <script src="js/add-btn.js"></script>
     <script src="js/foracast-btn.js"></script>
     <script src="js/main.js"></script>
 </body>
