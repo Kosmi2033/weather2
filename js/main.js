@@ -207,12 +207,12 @@ async function getWeather(cityName) {
 
     visubility()
 
-    function visubility(){
+    function visubility() {
       console.log('123')
 
       const visEl = document.getElementById('forecast__extra-card-subtitle-vis')
-console.log('123')
-      visEl.textContent =Math.round( weatherData.list[0].visibility / 1000) + ' km'
+      console.log('123')
+      visEl.textContent = Math.round(weatherData.list[0].visibility / 1000) + ' km'
     }
 
     // Forecast - card
