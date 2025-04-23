@@ -1,5 +1,9 @@
 'use strict';
 
+// import {
+//   addCards
+// } from './modules/add-btn.mjs'
+
 const API_KEY = '20389b41cdb4f698ad133287046846cf';
 
 const cityEl = document.getElementById('city'); // Элемент для имени города
@@ -152,12 +156,11 @@ async function getWeather(cityName) {
       const rainEl = document.getElementById('forecast__extra-card-subtitle-rain')
       const rainEl24 = document.getElementById('forecast__extra-card-subtitle-rainSub')
 
-      if (!weatherData.list[3].rain) {
+      if (!weatherData.list[3].rain["3h"]) {
         rainEl.innerHTML = '0 mm' + '<br>' + 'in last 3 hour'
         rainEl24.innerHTML = '0 mm expend in' + '<br>' + 'next 24h'
       } else {
-        rainEl.innerHTML = weatherData.list[3].rain + '<br>' + 'in last 3 hour'
-        rainEl24.innerHTML = Math.round(weatherData.list[3].rain + weatherData.list[4].rain + weatherData.list[5].rain + weatherData.list[6].rain + weatherData.list[7].rain) + '<br>' + 'next 12h.'
+        rainEl.innerHTML = weatherData.list[3].rain["3h"] + '<br>' + 'in last 3 hour'
       }
     }
 
@@ -214,6 +217,29 @@ async function getWeather(cityName) {
       const visEl = document.getElementById('forecast__extra-card-subtitle-vis')
       console.log('123')
       visEl.textContent = Math.round(weatherData.list[0].visibility / 1000) + ' km'
+    }
+
+    //Search
+
+    searchCity()
+
+    function searchCity() {
+
+      const inputSearch = document.getElementById('searchCityInput')
+      const valueSearch = inputSearch.onchange = function (event) {
+        console.log(event.target.value)
+        cityName = event.target.value;
+        
+
+        
+      };
+
+
+
+
+
+      // console.log(valueSearch)
+
     }
 
     // Forecast - card

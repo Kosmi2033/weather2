@@ -296,7 +296,7 @@ button {
   text-align: center;
 }
 
-.city {
+.city__search {
   position: absolute;
   left: 100%;
   overflow: hidden;

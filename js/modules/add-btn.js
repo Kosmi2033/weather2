@@ -1,6 +1,6 @@
 'use strict'
 
-function addCity(){
+function addCity() {
     const citySect = document.getElementById('citySect')
     if (citySect) {
         citySect.style.left = '48.59vw';
@@ -24,3 +24,7 @@ function addCard() {
 
     cardsEl.innerHTML += cardEl.outerHTML
 }
+
+// export {
+//     addCards
+// }
