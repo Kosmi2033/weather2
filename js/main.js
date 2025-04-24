@@ -1,349 +1,307 @@
 'use strict';
 
-// import {
-//   addCards
-// } from './modules/add-btn.mjs'
-
+// Константа API ключа OpenWeatherMap
 const API_KEY = '20389b41cdb4f698ad133287046846cf';
 
-const cityEl = document.getElementById('city'); // Элемент для имени города
-const tempEl = document.getElementById('temp'); // Элемент для температуры
+// Домашние элементы интерфейса
+const cityEl = document.getElementById('city');              // Элемент для имени города
+const tempEl = document.getElementById('temp');              // Элемент для температуры
+let currentCity = null;                                      // Последняя успешно полученная погода
 
-
-let currentCity = null; // Хранит последний успешно полученный город
-
+/**
+ * Получение погодных данных и обновление интерфейса
+ *
+ * @param {string|null} cityName Название города или null для использования геолокации
+ */
 async function getWeather(cityName) {
   try {
     let lat, lon;
 
-
+    // Проверяем, передано ли имя города или используется геолокация
     if (cityName === null) {
       try {
         const position = await new Promise((resolve, reject) => {
           if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(resolve, reject);
           } else {
-            reject(new Error('Геолокация недоступна'));
+            reject(new Error('Геолокация недоступна.'));
           }
         });
-
         lat = position.coords.latitude;
         lon = position.coords.longitude;
       } catch (err) {
-
-        cityName = 'Москва';
+        cityName = 'Москва'; // Используется Москва как резервный вариант
       }
     }
 
+    // Определяем координаты города по его названию
     if (typeof cityName === 'string') {
       const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${API_KEY}`;
-      const coordResponse = await fetch(geoUrl);
-
-      if (!coordResponse.ok) {
-        throw new Error(`Ошибка при поиске города "${cityName}"`);
+      const response = await fetch(geoUrl);
+      if (!response.ok) {
+        throw new Error(`Ошибка поиска города "${cityName}".`);
       }
-
-      const coordsData = await coordResponse.json();
-      console.log(coordsData)
-
-      if (!coordsData.length || !coordsData[0]) {
-        throw new Error("Координаты не найдены");
+      const data = await response.json();
+      if (!data.length || !data[0]) {
+        throw new Error("Город не найден.");
       }
-
-      ({ lat, lon } = coordsData[0]);
+      ({ lat, lon } = data[0]); // Берём первые координаты из результатов
     }
+
+    // Запрашиваем прогнозы погоды по данным координатам
+    const weatherUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+    const weatherResponse = await fetch(weatherUrl);
+    if (!weatherResponse.ok) {
+      throw new Error(`Ошибка загрузки погоды.`);
+    }
+    const weatherData = await weatherResponse.json();
+    console.log(weatherData)
+
+    // Обновляем основные элементы интерфейса
+    currentCity = `${weatherData.city.name}, ${weatherData.city.country}`;
+    cityEl.textContent = currentCity;
+    tempEl.textContent = `${Math.round(weatherData.list[0].main.temp - 273)} °C`;
+
+    // Дополним деталями (воздух, УФ, ветер, осадки и т.д.)
+    updateAirQuality(lat, lon);
+    updateUVIndex(lat, lon);
+    updateWind(weatherData);
+    updateRainfall(weatherData);
+    updateFeelsLike(weatherData);
+    updateHumidity(weatherData);
+    updateVisibility(weatherData);
+    updateForecast(weatherData);
+
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+// Функция обновления качества воздуха
+async function updateAirQuality(lat, lon) {
+  const airUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+  const response = await fetch(airUrl);
+  if (!response.ok) {
+    throw new Error(`Ошибка получения данных о качестве воздуха.`);
+  }
+  const data = await response.json();
+
+  const aqi = data.list[0].main.aqi;
+  const progressBarValue = Math.round(100 / 5 * aqi);
+
+  const airEl = document.getElementById('forecast__extra-card-subtitle-air');
+  const chartPointEl = document.getElementById('forecast__extra-card-subtitle-chart-point-air');
+
+  airEl.textContent = `${aqi}`;
+
+  switch (aqi) {
+    case 1:
+      airEl.textContent += ' - Good';
+      break;
+    case 2:
+      airEl.textContent += ' - Fair';
+      break;
+    case 3:
+      airEl.textContent += ' - Moderate';
+      break;
+    case 4:
+      airEl.textContent += ' - Poor';
+      break;
+    case 5:
+      airEl.textContent += ' - Very poor';
+      break;
+  }
+
+  chartPointEl.style.left = `${progressBarValue}%`;
+}
+
+// Функция обновления индекса ультрафиолетового излучения
+async function updateUVIndex(lat, lon) {
+  const uvUrl = `https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon}`;
+  const response = await fetch(uvUrl);
+  if (!response.ok) {
+    throw new Error(`Ошибка получения UV индекса.`);
+  }
+  const data = await response.json();
+
+  const uvi = data.now.uvi;
+  const progressBarValue = Math.round(100 / 11 * uvi);
+
+  const uvEl = document.getElementById('forecast__extra-card-subtitle-uv');
+  const chartPointEl = document.getElementById('forecast__extra-card-subtitle-chart-point-uv');
+
+  uvEl.textContent = uvi;
+  chartPointEl.style.left = `${progressBarValue}%`;
+}
+
+// Функция отображения направления ветра
+function updateWind(data) {
+  const arrowEl = document.getElementById('forecast__wind-arrow');
+  const speedEl = document.getElementById('forecast__wind');
+
+  arrowEl.style.transform = `rotate(${Math.round(data.list[0].wind.deg + 90)}deg)`;
+  speedEl.textContent = `${data.list[0].wind.speed} km/h`;
+}
+
+// Функция отображения количества осадков
+function updateRainfall(data) {
+  const rainEl = document.getElementById('forecast__extra-card-subtitle-rain');
+
+  if (!data.list[3].rain) {
+    rainEl.textContent = 'No precipitation';
+  } else {
+    rainEl.textContent = `${data.list[3].rain['3h']} mm over past 3 hours`;
+  }
+}
+
+// Функция расчёта ощущения температуры («ощущается как»)
+function updateFeelsLike(data) {
+  const feelsEl = document.getElementById('forecast__extra-card-subtitle-likes');
+  const txtEl = document.getElementById('forecast__extra-card-subtitle-likes-txt');
+
+  feelsEl.textContent = Math.round(data.list[0].main.feels_like - 273);
+
+  if (data.list[0].wind.speed > 10) {
+    txtEl.textContent = "Due to strong winds";
+  } else if (data.list[0].main.humidity > 70) {
+    txtEl.textContent = "Due to high humidity";
+  } else if (data.list[0].clouds.all > 50) {
+    txtEl.textContent = "Due to cloudiness";
+  } else {
+    txtEl.textContent = "Comparable to actual temperature.";
+  }
+}
+
+// Функция обновления уровня влажности
+function updateHumidity(data) {
+  const humidityEl = document.getElementById('forecast__extra-card-subtitle-hum');
+  const textEl = document.getElementById('forecast__extra-card-subtitle-hum-txt');
+
+  humidityEl.textContent = `${data.list[0].main.humidity}%`;
+
+  if (data.list[0].main.humidity >= 40 && data.list[0].main.humidity <= 60) {
+    textEl.textContent = 'Comfortable level of humidity';
+  } else if (data.list[0].main.humidity < 40) {
+    textEl.textContent = 'Low humidity';
+  } else {
+    textEl.textContent = 'High humidity';
+  }
+}
+
+// Функция отображения видимости
+function updateVisibility(data) {
+  const visEl = document.getElementById('forecast__extra-card-subtitle-vis');
+  visEl.textContent = `${Math.round(data.list[0].visibility / 1000)} km`;
+}
+
+
+
+// Прогноз погоды на следующие дни 
+function updateForecast(data) {
+  const futElHum = document.querySelectorAll('#forecast__future-card-humidity');
+  const futElTitle = document.querySelectorAll('#forecast__future-card-title');
+  const futElTemp = document.querySelectorAll('#forecast__future-card-temp');
+
+  // Индекс первого элемента текущего дня
+  const nowHour = parseInt(data.list[0].dt_txt.slice(-8, -6));
+  console.log(nowHour)
+  const startIndex = 0; // Округляем вверх, чтобы начать с ближайшей временной метки
+
+  // Обновляем блоки будущего прогноза
+  let counter = startIndex;
+
+  futElHum.forEach((humidityBlock, idx) => {
+    const item = data.list[counter];
+    humidityBlock.textContent = `${item.main.humidity}%`;
+    counter > 3 ? counter = 0 : counter++; // Следующий индекс списка;
+  });
+
+  futElTemp.forEach((tempBlock, idx) => {
+    const item = data.list[counter];
+    tempBlock.textContent = `${Math.round(item.main.temp - 273)}°C`;
+    counter > 3 ? counter = 0 : counter++;
+  });
+
+  futElTitle.forEach((titleBlock, idx) => {
+    const item = data.list[counter];
+    titleBlock.textContent = item.dt_txt.slice(-8, -3); // Показываем время в формате ЧЧ:ММ
+    counter > 3 ? counter = 0 : counter++;
+  });
+
+  // Недельный прогноз
+  const weekTitles = document.querySelectorAll('#forecast__future-card-title-weekly');
+  const weekHumidityBlocks = document.querySelectorAll('#forecast__future-card-picture-weekly');
+  const weekTemperatureBlocks = document.querySelectorAll('#forecast__future-card-temp-weekly');
+
+  // Смещение индекса для начала нового дня
+  const firstNextDayIndex = startIndex + ((24 - nowHour) / 3 | 0); // Переводим часы в шаги по три часа
+  let dayCounter = firstNextDayIndex;
+
+  weekTitles.forEach((weekTitle, idx) => {
+    const dateItem = data.list[dayCounter];
+    weekTitle.textContent = dateItem.dt_txt.slice(5, 10); // Формат ММ-ДД
+    dayCounter > 32 ? dayCounter = firstNextDayIndex : dayCounter += 8; // Переход к следующим суткам (8 шагов вперед)
+  });
+
+  weekHumidityBlocks.forEach((humidityBlock, idx) => {
+    const dateItem = data.list[dayCounter];
+    humidityBlock.textContent = `${dateItem.main.humidity}%`;
+    dayCounter > 32 ? dayCounter = firstNextDayIndex : dayCounter += 8;
+  });
+
+  weekTemperatureBlocks.forEach((tempBlock, idx) => {
+    const dateItem = data.list[dayCounter];
+    tempBlock.textContent = `${Math.round(dateItem.main.temp - 273)}°C`;
+    dayCounter > 32 ? dayCounter = firstNextDayIndex : dayCounter += 8;
+  });
+}
+
+// Минимальная карта погоды конкретного города
+async function miniCards(cityName) {
+  const cityCard = document.querySelector('.city__card');
+  const errorEl = document.getElementById('city__card-error-search');
+
+  try {
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${API_KEY}`;
+    const response = await fetch(geoUrl);
+    if (!response.ok) {
+      throw new Error(`Error finding city "${cityName}".`);
+    }
+    const data = await response.json();
+    if (!data.length || !data[0]) {
+      throw new Error("City not found.");
+    }
+
+    const { lat, lon } = data[0];
 
     const weatherUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
     const weatherResponse = await fetch(weatherUrl);
     if (!weatherResponse.ok) {
-      throw new Error(`Ошибка при загрузке погоды для указанных координат (${lat},${lon})`);
+      throw new Error(`Error retrieving weather data.`);
     }
-
     const weatherData = await weatherResponse.json();
-    console.log(weatherData)
 
-    currentCity = `${weatherData.city.name}, ${weatherData.city.country}`;
+    cityCard.style.display = 'flex';
+    errorEl.style.display = 'none';
 
-    cityEl.textContent = currentCity;
-    tempEl.textContent = `${Math.round(weatherData.list[0].main.temp - 273)} °C`;
-
-
-
-    // Air quality
-
-    const airUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    const airResponse = await fetch(airUrl)
-
-    if (!airResponse.ok) {
-      throw new Error(`Ошибка при загрузке погоды для указанных координат (${lat},${lon})`);
-    }
-
-    const airData = await airResponse.json();
-    console.log(airData)
-
-    airQua();
-
-    function airQua() {
-      const airEl = document.getElementById('forecast__extra-card-subtitle-air');
-      const airElChar = document.getElementById('forecast__extra-card-subtitle-chart-point-air')
-      const airProgres = Math.round(100 / 5 * airData.list[0].main.aqi)
-
-      airEl.textContent = airData.list[0].main.aqi
-
-      switch (airData.list[0].main.aqi) {
-        case 1:
-          airEl.textContent += ' - Good'
-          airElChar.style.left = `${airProgres}%`
-          break
-        case 2:
-          airEl.textContent += ' - Fair'
-          airElChar.style.left = `${airProgres}%`
-          break
-        case 3:
-          airEl.textContent += ' - Moderate'
-          airElChar.style.left = `${airProgres}%`
-          break
-        case 4:
-          airEl.textContent += ' - Poor'
-          airElChar.style.left = `${airProgres}%`
-          break
-        case 5:
-          airEl.textContent += ' - Very Poor'
-          airElChar.style.left = `${airProgres}%`
-          break
-      }
-    }
-
-    // uv index
-
-    const uvUrl = `https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon}`
-
-    const uvRespons = await fetch(uvUrl);
-    if (!uvRespons.ok) {
-      throw new Error(`Ошибка при загрузке погоды для указанных координат (${lat},${lon})`);
-    }
-
-    const uvData = await uvRespons.json();
-    console.log(uvData)
-
-    uvIndex()
-
-    function uvIndex() {
-      const uvEl = document.getElementById('forecast__extra-card-subtitle-uv');
-      const uvElChart = document.querySelector('#forecast__extra-card-subtitle-chart-point-uv');
-      const uvProgres = Math.round(100 / 11 * uvData.now.uvi);
-
-      uvEl.textContent = uvData.now.uvi;
-      uvElChart.style.left = `${uvProgres}%`
-    }
-
-    // wind
-
-    wind()
-
-    function wind() {
-
-      const arrowEl = document.getElementById('forecast__wind-arrow');
-      const windEl = document.getElementById('forecast__wind')
-
-      arrowEl.style.transform = `rotate(${Math.round(weatherData.list[0].wind.deg + 90)}deg)`
-      windEl.innerHTML = weatherData.list[0].wind.speed + '<br>' + 'km/h'
-    }
-
-    // rainfall
-    rainfall()
-    function rainfall() {
-      const rainEl = document.getElementById('forecast__extra-card-subtitle-rain')
-      const rainEl24 = document.getElementById('forecast__extra-card-subtitle-rainSub')
-
-      if (!weatherData.list[3].rain["3h"]) {
-        rainEl.innerHTML = '0 mm' + '<br>' + 'in last 3 hour'
-        rainEl24.innerHTML = '0 mm expend in' + '<br>' + 'next 24h'
-      } else {
-        rainEl.innerHTML = weatherData.list[3].rain["3h"] + '<br>' + 'in last 3 hour'
-      }
-    }
-
-    // feel like
-
-    likes()
-    function likes() {
-
-      const likesEl = document.getElementById('forecast__extra-card-subtitle-likes');
-      const likesElTxt = document.getElementById('forecast__extra-card-subtitle-likes-txt');
-
-      likesEl.textContent = Math.round(weatherData.list[0].main.feels_like - 273);
-
-      if (weatherData.list[0].wind.speed > 10) {
-        likesElTxt.textContent = "With wind";
-      }
-      if (weatherData.list[0].main.humidity > 70) {
-        likesElTxt.innerHTML = 'With humidity'
-      }
-      if (weatherData.list[0].clouds.all > 50) {
-        likesElTxt.textContent = "With cloud cover";
-      } else {
-        likesElTxt.innerHTML = "Similar to the actual<br>temperature.";
-      }
-    }
-
-    // humidity
-
-    hum()
-    function hum() {
-      const humidityEl = document.getElementById('forecast__extra-card-subtitle-hum')
-      const humidityElTxt = document.getElementById('forecast__extra-card-subtitle-hum-txt')
-
-      humidityEl.textContent = weatherData.list[0].main.humidity + '%'
-
-      if (weatherData.list[0].main.humidity >= 40 && weatherData.list[0].main.humidity <= 60) {
-        humidityElTxt.textContent = 'Comfortable conditions'
-      }
-      if (weatherData.list[0].main.humidity < 40) {
-        humidityElTxt.textContent = 'Dry air'
-      }
-      else if (weatherData.list[0].main.humidity > 60) {
-        humidityElTxt.textContent = 'Humid air'
-      }
-    }
-
-    // visibility
-
-    visubility()
-
-    function visubility() {
-      console.log('123')
-
-      const visEl = document.getElementById('forecast__extra-card-subtitle-vis')
-      console.log('123')
-      visEl.textContent = Math.round(weatherData.list[0].visibility / 1000) + ' km'
-    }
-
-    //Search
-
-    searchCity()
-
-    function searchCity() {
-
-      const inputSearch = document.getElementById('searchCityInput')
-      const valueSearch = inputSearch.onchange = function (event) {
-        console.log(event.target.value)
-        cityName = event.target.value;
-        
-
-        
-      };
-
-
-
-
-
-      // console.log(valueSearch)
-
-    }
-
-    // Forecast - card
-
-    forecast()
-
-    function forecast() {
-      const futElHum = document.querySelectorAll('#forecast__future-card-humidity');
-      // Обработка времени
-      const futElTitle = document.querySelectorAll('#forecast__future-card-title');
-      // Обработка температуры
-      const futElTemp = document.querySelectorAll('#forecast__future-card-temp');
-      // Находим ближайший массив следующего дня
-      const weekly = Math.round((36 - weatherData.list[0].dt_txt.slice(-8).slice(0, 2)) / 3)
-      const weeklyElTitle = document.querySelectorAll('#forecast__future-card-title-weekly');
-      const weeklyElHum = document.querySelectorAll('#forecast__future-card-picture-weekly');
-      const weeklyElTemp = document.querySelectorAll('#forecast__future-card-temp-weekly');
-      let count = 0;
-      let i = 1;
-
-      futElHum.forEach((element) => {
-        element.textContent = weatherData.list[element.getAttribute('data-id')].main.humidity + '%';
-      });
-      futElTemp.forEach((element) => {
-        element.textContent = Math.round(weatherData.list[element.getAttribute('data-id')].main.temp - 273) + '°C';
-      });
-      futElTitle.forEach((element) => {
-        element.textContent = weatherData.list[element.getAttribute('data-id')].dt_txt.slice(-8).slice(0, 5);
-      });
-
-      weeklyElTitle.forEach((element) => {
-        if (i < weeklyElTitle.length) {
-          element.textContent = weatherData.list[count].dt_txt.slice(5, 10);
-          if (count >= weekly) {
-            count += 8
-          } else {
-            count += weekly
-          }
-          ++i
-        } else {
-          element.textContent = weatherData.list[count].dt_txt.slice(5, 10);
-          if (count >= weekly) {
-            count += 8
-          } else {
-            count += weekly
-          }
-          count = 0
-          i = 1
-        }
-      });
-
-      weeklyElHum.forEach((element) => {
-        if (i < weeklyElTitle.length) {
-          element.textContent = weatherData.list[count].main.humidity + '%';
-          if (count >= weekly) {
-            count += 8
-          } else {
-            count += weekly
-          }
-          ++i
-        } else {
-          element.textContent = weatherData.list[count].main.humidity + '%';
-          if (count >= weekly) {
-            count += 8
-          } else {
-            count += weekly
-          }
-          count = 0
-          i = 1
-        }
-      });
-
-      weeklyElTemp.forEach((element) => {
-        if (i < weeklyElTitle.length) {
-          element.textContent = Math.round(weatherData.list[count].main.temp - 273) + '°C';
-          if (count >= weekly) {
-            count += 8
-          } else {
-            count += weekly
-          }
-          ++i
-        } else {
-          element.textContent = Math.round(weatherData.list[count].main.temp - 273) + '°C';
-          if (count >= weekly) {
-            count += 8
-          } else {
-            count += weekly
-          }
-          count = 0
-          i = 0
-        }
-      });
-    }
-
+    document.getElementById('city__card-main-inf').textContent = weatherData.city.name;
+    document.getElementById('city__card-main-inf-bottom-humidity').textContent = `H: ${weatherData.list[0].main.humidity}`;
+    document.getElementById('city__card-main-inf-bottom-likes').textContent = `L: ${Math.round(weatherData.list[0].main.feels_like - 273)}`;
   } catch (err) {
-    // console.error(err.message);
-    // alert(err.message);
+    errorEl.style.display = 'block';
+    errorEl.textContent = err.message;
   }
-
-
 }
 
-document.getElementById('bar__location-btn').addEventListener('click', () => {
-  getWeather(null); // Вызываем функцию с null, чтобы использовать геолокацию
-});
+// Функционал поиска города
+function searchCity() {
+  const inputSearch = document.getElementById('searchCityInput');
+  inputSearch.addEventListener('input', async e => {
+    await miniCards(e.target.value.trim());
+  });
+}
 
-getWeather(null); 
+// Основной обработчик событий кнопок и инициализации
+searchCity(); // Добавляем обработчик поиска города
+document.getElementById('bar__location-btn').addEventListener('click', () => getWeather(null)); // Кнопка текущей геопозиции
+getWeather(null); // Первоначальная автоматическая загрузка погоды

@@ -385,7 +385,8 @@ button {
     }
 
     &__card {
-        display: flex;
+        display: none;
+        // display: flex;
         justify-content: space-between;
         align-items: end;
         background-image: url(../img/main-page/city-bg-card.png);
@@ -422,6 +423,10 @@ button {
     }
 }
 
+#city__card-error-search{
+    display: none;
+    grid-column-end: span 2
+}
 
 // .container{
 //     display: block;

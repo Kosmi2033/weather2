@@ -328,13 +328,13 @@
 
                             <div class="city__card">
                                 <div class="city__card-main-inf">
-                                    <p>19</p>
+                                    <p id="city__card-main-inf">19</p>
                                     <div class="city__card-main-inf-bottom">
                                         <div class="city__card-main-inf-bottom-s">
-                                            <p>H:24</p>
-                                            <p>L:18</p>
+                                            <p id="city__card-main-inf-bottom-humidity">H:24</p>
+                                            <p id="city__card-main-inf-bottom-likes">L:18</p>
                                         </div>
-                                        <p>Monreal, Canada</p>
+                                        <p id="miniCardsCity">Monreal, Canada</p>
                                     </div>
                                 </div>
                                 <div class="city__card-add-inf">
@@ -342,7 +342,8 @@
                                     <button onclick="addCard()"><img src="img/main-page/stars/star-befor.png" alt=""></button>
                                 </div>
                             </div>
-                            
+
+                            <p id="city__card-error-search"></p>
                         </div>
                     </div>
                 </div>
@@ -350,9 +351,10 @@
         </section>
     </div>
 
-    <script src="js/modules/add-btn.js" ></script>
-    <script src="js/foracast-btn.js"></script>
     <script src="js/main.js" ></script>
+    <script src="js/miniCards.js"></script>
+    <script src="js/add-btn.js" ></script>
+    <script src="js/foracast-btn.js"></script>
 </body>
 
 </html>

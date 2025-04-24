@@ -332,7 +332,7 @@ button {
   justify-content: space-between;
 }
 .city__card {
-  display: flex;
+  display: none;
   justify-content: space-between;
   align-items: end;
   background-image: url(../img/main-page/city-bg-card.png);
@@ -361,6 +361,11 @@ button {
 .city__card-main-inf-bottom-s {
   display: flex;
   justify-content: space-between;
+}
+
+#city__card-error-search {
+  display: none;
+  grid-column-end: span 2;
 }
 
 .main__town-title {
