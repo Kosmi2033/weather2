@@ -395,6 +395,10 @@ button {
         padding: 20px;
     }
 
+    &__card--favorite{
+        display: flex;
+    }
+
     &__card-main-inf {
         display: flex;
         flex-direction: column;

@@ -340,6 +340,9 @@ button {
   background-size: contain;
   padding: 20px;
 }
+.city__card--favorite {
+  display: flex;
+}
 .city__card-main-inf {
   display: flex;
   flex-direction: column;

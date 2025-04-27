@@ -234,29 +234,34 @@ function updateForecast(data) {
   const weekTemperatureBlocks = document.querySelectorAll('#forecast__future-card-temp-weekly');
 
   // Смещение индекса для начала нового дня
-  const firstNextDayIndex = startIndex + ((24 - nowHour) / 3 | 0); // Переводим часы в шаги по три часа
+  const firstNextDayIndex = startIndex + ((24 - nowHour) / 3); // Переводим часы в шаги по три часа
   let dayCounter = firstNextDayIndex;
-
+  console.log(dayCounter)
   weekTitles.forEach((weekTitle, idx) => {
+    console.log('0')
     const dateItem = data.list[dayCounter];
     weekTitle.textContent = dateItem.dt_txt.slice(5, 10); // Формат ММ-ДД
-    dayCounter > 32 ? dayCounter = firstNextDayIndex : dayCounter += 8; // Переход к следующим суткам (8 шагов вперед)
+    console.log(dayCounter)
+    dayCounter += 8; // Переход к следующим суткам (8 шагов вперед)
   });
 
   weekHumidityBlocks.forEach((humidityBlock, idx) => {
+    dayCounter > 24 ? dayCounter = firstNextDayIndex : dayCounter += 8;
+
     const dateItem = data.list[dayCounter];
     humidityBlock.textContent = `${dateItem.main.humidity}%`;
-    dayCounter > 32 ? dayCounter = firstNextDayIndex : dayCounter += 8;
+    // dayCounter > 36 ? dayCounter = firstNextDayIndex : dayCounter += 8;
   });
 
   weekTemperatureBlocks.forEach((tempBlock, idx) => {
+    dayCounter > 24 ? dayCounter = firstNextDayIndex : dayCounter += 8;
+
     const dateItem = data.list[dayCounter];
     tempBlock.textContent = `${Math.round(dateItem.main.temp - 273)}°C`;
-    dayCounter > 32 ? dayCounter = firstNextDayIndex : dayCounter += 8;
   });
 }
 
-// Минимальная карта погоды конкретного города
+// Карточки поиска города
 async function miniCards(cityName) {
   const cityCard = document.querySelector('.city__card');
   const errorEl = document.getElementById('city__card-error-search');
@@ -284,12 +289,18 @@ async function miniCards(cityName) {
     cityCard.style.display = 'flex';
     errorEl.style.display = 'none';
 
-    document.getElementById('city__card-main-inf').textContent = weatherData.city.name;
+    document.getElementById('city__card-main-inf').textContent = `${Math.round(weatherData.list[0].main.temp - 273)} °C`;
+    document.getElementById('miniCardsCity').textContent = `${weatherData.city.name}, ${weatherData.city.country}`;
     document.getElementById('city__card-main-inf-bottom-humidity').textContent = `H: ${weatherData.list[0].main.humidity}`;
     document.getElementById('city__card-main-inf-bottom-likes').textContent = `L: ${Math.round(weatherData.list[0].main.feels_like - 273)}`;
+
+   
+
+    // Вызываем функцию addCard после получения данных
+    // addCard();
   } catch (err) {
-    errorEl.style.display = 'block';
-    errorEl.textContent = err.message;
+    // errorEl.style.display = 'block';
+    // errorEl.textContent = err.message;
   }
 }
 

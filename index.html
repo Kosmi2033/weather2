@@ -33,11 +33,11 @@
                                         src="img/main-page/Geo.png" alt="Determine my geographical position"></button>
                             </div>
                             <div class="bar__plus">
-                                <button onclick="addCity()" class="bar__plus-btn"><img src="img/main-page/plus-btn/Property 1=Default.png"
-                                        alt=""></button>
+                                <button onclick="addCity()" class="bar__plus-btn"><img
+                                        src="img/main-page/plus-btn/Property 1=Default.png" alt=""></button>
                             </div>
                             <div class="bar__menu">
-                                <button class="bar__side bar__menu-btn"><img src="img/main-page/bar-menu.png"
+                                <button onclick="favoriteCity()" class="bar__side bar__menu-btn"><img src="img/main-page/bar-menu.png"
                                         alt="choose a city"></button>
                             </div>
                         </div>
@@ -326,6 +326,8 @@
                         </div>
                         <div class="city__cards">
 
+                            <p id="city__card-error-search"></p>
+
                             <div class="city__card">
                                 <div class="city__card-main-inf">
                                     <p id="city__card-main-inf">19</p>
@@ -338,12 +340,54 @@
                                     </div>
                                 </div>
                                 <div class="city__card-add-inf">
-                                    <img class="city__card-add-inf-img" src="img/icon/Moon cloud fast wind.png" alt="img weather">
-                                    <button onclick="addCard()"><img src="img/main-page/stars/star-befor.png" alt=""></button>
+                                    <img class="city__card-add-inf-img" src="img/icon/Moon cloud fast wind.png"
+                                        alt="img weather">
+                                    <button ><img id="imgCard" onclick="addCard()" src="img/main-page/stars/star-befor.png"
+                                            alt=""></button>
                                 </div>
                             </div>
 
-                            <p id="city__card-error-search"></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="favoriteCitySect" class="city__search">
+            <div class="backgroung city__background">
+                <div class="container city__container">
+                    <div class="wrapper city__wrapper">
+                        <div class="city__panel">
+                            <div onclick="backAddCity()" class="city__panel-back-btn">
+                                <img src="img/main-page/chevron.left.png" alt="Arrow left">
+                                <p>Weather</p>
+                            </div>
+                            <div class="city__panel-option-btn">
+                                <img src="img/main-page/three-point.png" alt="Button menu">
+                            </div>
+                        </div>
+                        <div id="cityFavoriteCards" class="city__cards">
+
+                            <!-- <div class="city__card city__card--favorite">
+                                <div class="city__card-main-inf">
+                                    <p id="city__card-main-inf">19</p>
+                                    <div class="city__card-main-inf-bottom">
+                                        <div class="city__card-main-inf-bottom-s">
+                                            <p id="city__card-main-inf-bottom-humidity">H:24</p>
+                                            <p id="city__card-main-inf-bottom-likes">L:18</p>
+                                        </div>
+                                        <p id="miniCardsCity">Monreal, Canada</p>
+                                    </div>
+                                </div>
+                                <div class="city__card-add-inf">
+                                    <img class="city__card-add-inf-img" src="img/icon/Moon cloud fast wind.png"
+                                        alt="img weather">
+                                    <button onclick="deleteCard()"><img src="img/main-page/stars/star-after.png"
+                                            alt=""></button>
+                                </div>
+                            </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -351,9 +395,9 @@
         </section>
     </div>
 
-    <script src="js/main.js" ></script>
+    <script src="js/main.js"></script>
     <script src="js/miniCards.js"></script>
-    <script src="js/add-btn.js" ></script>
+    <script src="js/add-btn.js"></script>
     <script src="js/foracast-btn.js"></script>
 </body>
 
