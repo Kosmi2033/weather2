@@ -55,7 +55,7 @@ async function getWeather(cityName) {
       throw new Error(`Ошибка загрузки погоды.`);
     }
     const weatherData = await weatherResponse.json();
-    console.log(weatherData)
+    // console.log(weatherData)
 
     // Обновляем основные элементы интерфейса
     currentCity = `${weatherData.city.name}, ${weatherData.city.country}`;
@@ -204,7 +204,6 @@ function updateForecast(data) {
 
   // Индекс первого элемента текущего дня
   const nowHour = parseInt(data.list[0].dt_txt.slice(-8, -6));
-  console.log(nowHour)
   const startIndex = 0; // Округляем вверх, чтобы начать с ближайшей временной метки
 
   // Обновляем блоки будущего прогноза
@@ -236,12 +235,9 @@ function updateForecast(data) {
   // Смещение индекса для начала нового дня
   const firstNextDayIndex = startIndex + ((24 - nowHour) / 3); // Переводим часы в шаги по три часа
   let dayCounter = firstNextDayIndex;
-  console.log(dayCounter)
   weekTitles.forEach((weekTitle, idx) => {
-    console.log('0')
     const dateItem = data.list[dayCounter];
     weekTitle.textContent = dateItem.dt_txt.slice(5, 10); // Формат ММ-ДД
-    console.log(dayCounter)
     dayCounter += 8; // Переход к следующим суткам (8 шагов вперед)
   });
 
@@ -261,7 +257,94 @@ function updateForecast(data) {
   });
 }
 
-// Карточки поиска города
+// Добавляем в начало файла
+let favoriteCities = [];
+
+// Функция для добавления города в избранное
+async function addToFavorites(cityName) {
+  try {
+    // Проверяем, есть ли уже такой город в избранном
+    if (favoriteCities.some(city => city.name === cityName)) {
+      console.log('Город уже в избранном');
+      return;
+    }
+
+    // Получаем данные города
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${API_KEY}`;
+    const geoResponse = await fetch(geoUrl);
+    if (!geoResponse.ok) throw new Error(`Город "${cityName}" не найден.`);
+    
+    const geoData = await geoResponse.json();
+    if (!geoData.length) throw new Error("Город не найден.");
+
+    const { lat, lon } = geoData[0];
+
+    // Получаем погоду
+    const weatherUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+    const weatherResponse = await fetch(weatherUrl);
+    if (!weatherResponse.ok) throw new Error("Ошибка загрузки погоды.");
+
+    const weatherData = await weatherResponse.json();
+    
+    // Добавляем в избранное
+    favoriteCities.push({
+      name: cityName,
+      data: weatherData
+    });
+
+    // Обновляем список избранных
+    updateFavoritesList();
+
+  } catch (err) {
+    console.error("Ошибка добавления города:", err);
+  }
+}
+
+// Обновление списка избранных городов
+function updateFavoritesList() {
+  const favoritesContainer = document.getElementById('cityFavoriteCards');
+  favoritesContainer.innerHTML = '';
+
+  favoriteCities.forEach(city => {
+    const card = document.createElement('div');
+    card.className = 'city__card city__card--favorite';
+    card.innerHTML = `
+      <div class="city__card-main-inf">
+        <p>${Math.round(city.data.list[0].main.temp - 273)} °C</p>
+        <div class="city__card-main-inf-bottom">
+          <div class="city__card-main-inf-bottom-s">
+            <p>H: ${city.data.list[0].main.humidity}%</p>
+            <p>L: ${Math.round(city.data.list[0].main.feels_like - 273)}</p>
+          </div>
+          <p>${city.data.city.name}, ${city.data.city.country}</p>
+        </div>
+      </div>
+      <div class="city__card-add-inf">
+        <img class="city__card-add-inf-img" src="img/icon/Moon cloud fast wind.png" alt="img weather">
+        <button onclick="removeFromFavorites('${city.name}')">
+          <img src="img/main-page/stars/star-after.png" alt="">
+        </button>
+      </div>
+    `;
+    
+    // Добавляем обработчик клика на всю карточку
+    card.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'IMG') {
+        getWeather(city.name);
+      }
+    });
+
+    favoritesContainer.appendChild(card);
+  });
+}
+
+// Удаление из избранного
+function removeFromFavorites(cityName) {
+  favoriteCities = favoriteCities.filter(city => city.name !== cityName);
+  updateFavoritesList();
+}
+
+// Модифицируем функцию miniCards для работы с избранным
 async function miniCards(cityName) {
   const cityCard = document.querySelector('.city__card');
   const errorEl = document.getElementById('city__card-error-search');
@@ -269,40 +352,47 @@ async function miniCards(cityName) {
   try {
     const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${API_KEY}`;
     const response = await fetch(geoUrl);
-    if (!response.ok) {
-      throw new Error(`Error finding city "${cityName}".`);
-    }
+    if (!response.ok) throw new Error(`Ошибка поиска города "${cityName}".`);
+    
     const data = await response.json();
-    if (!data.length || !data[0]) {
-      throw new Error("City not found.");
-    }
+    if (!data.length) throw new Error("Город не найден.");
 
     const { lat, lon } = data[0];
 
     const weatherUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
     const weatherResponse = await fetch(weatherUrl);
-    if (!weatherResponse.ok) {
-      throw new Error(`Error retrieving weather data.`);
-    }
+    if (!weatherResponse.ok) throw new Error("Ошибка загрузки погоды.");
+
     const weatherData = await weatherResponse.json();
 
+    // Обновляем карточку
     cityCard.style.display = 'flex';
     errorEl.style.display = 'none';
 
-    document.getElementById('city__card-main-inf').textContent = `${Math.round(weatherData.list[0].main.temp - 273)} °C`;
-    document.getElementById('miniCardsCity').textContent = `${weatherData.city.name}, ${weatherData.city.country}`;
-    document.getElementById('city__card-main-inf-bottom-humidity').textContent = `H: ${weatherData.list[0].main.humidity}`;
-    document.getElementById('city__card-main-inf-bottom-likes').textContent = `L: ${Math.round(weatherData.list[0].main.feels_like - 273)}`;
+    cityCard.querySelector('#city__card-main-inf').textContent = `${Math.round(weatherData.list[0].main.temp - 273)} °C`;
+    cityCard.querySelector('#miniCardsCity').textContent = `${weatherData.city.name}, ${weatherData.city.country}`;
+    cityCard.querySelector('#city__card-main-inf-bottom-humidity').textContent = `H: ${weatherData.list[0].main.humidity}%`;
+    cityCard.querySelector('#city__card-main-inf-bottom-likes').textContent = `L: ${Math.round(weatherData.list[0].main.feels_like - 273)}`;
 
-   
+    // Обновляем обработчик кнопки "добавить в избранное"
+    const starBtn = cityCard.querySelector('#imgCard');
+    starBtn.onclick = (e) => {
+      e.stopPropagation();
+      addToFavorites(weatherData.city.name);
+    };
 
-    // Вызываем функцию addCard после получения данных
-    // addCard();
+    // Обработчик клика на всю карточку
+    cityCard.onclick = () => {
+      getWeather(weatherData.city.name);
+    };
+
   } catch (err) {
-    // errorEl.style.display = 'block';
-    // errorEl.textContent = err.message;
+    errorEl.style.display = 'block';
+    errorEl.textContent = err.message;
   }
 }
+
+
 
 // Функционал поиска города
 function searchCity() {

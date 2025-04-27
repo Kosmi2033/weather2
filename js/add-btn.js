@@ -21,29 +21,18 @@ function backAddCity() {
     }
 }
 
-// function addCardCity() {
-//     const cardEl = document.querySelectorAll('.city__card')
-//     let cardsEl = document.querySelector('#cityFavoriteCards')
+// function addCard() {
+//     const cityCard = document.querySelector('.city__card');
+//     const error1 = document.getElementById('city__card-error-search');
+//     const card1 = cityCard.cloneNode(true); // Создаем копию текущего элемента
+//     const cards = document.querySelector('#cityFavoriteCards');
 
-//     //  = cardEl.cloneNode(true);
-//     // cardEl.querySelector(imgCard).src = 'img/main-page/stars/star-after.png'
-//     cardsEl.innerHTML += document.querySelector('.city__card--favorite').outerHTML
-//     cardEl.querySelector(imgCard).src = 'img/main-page/stars/star-after.png'
+//     // Изменяем изображение в копии
+//     card1.querySelector('#imgCard').src = './img/main-page/stars/star-after.png';
+//     card1.querySelector('#imgCard').setAttribute('onclick','delCard(this)')
 
+//     cards.appendChild(card1); // Добавляем копию в целевой блок
 // }
-
-function addCard() {
-    const cityCard = document.querySelector('.city__card');
-    const error1 = document.getElementById('city__card-error-search');
-    const card1 = cityCard.cloneNode(true); // Создаем копию текущего элемента
-    const cards = document.querySelector('#cityFavoriteCards');
-
-    // Изменяем изображение в копии
-    card1.querySelector('#imgCard').src = './img/main-page/stars/star-after.png';
-    card1.querySelector('#imgCard').setAttribute('onclick','delCard(this)')
-
-    cards.appendChild(card1); // Добавляем копию в целевой блок
-}
 
 function delCard(element){
     const card = element.closest('.city__card');
@@ -56,8 +45,6 @@ function delCard(element){
     }
 
 }
-
-
 
 function favoriteCity() {
     const citySect = document.getElementById('favoriteCitySect')
