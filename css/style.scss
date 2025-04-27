@@ -1,5 +1,7 @@
-@use 'fonts-size';
+// @import 'path_file.scss';
+@import '_media-mixin.scss';
 
+// @use '_fonts-size.scss';
 :root {
     // solid
     --solid-purple: #48319D;
@@ -16,6 +18,7 @@
     --radial-bg-extra: radial-gradient(circle, rgba(69, 39, 139, 1) 0%, rgba(46, 51, 90, 1) 100%);
     --radial-pink: radial-gradient(#F7CBFD 0%, #7758D1 100%);
     // theme-dark
+    --color-black: #000000;
     --color-primary: #FFFFFF;
     --color-secondary: rgba(235, 235, 245, 0.6);
     --color-tertiary: rgba(235, 235, 245, 0.3);
@@ -29,6 +32,7 @@
 }
 
 body {
+    position: relative;
     display: flex;
     justify-content: center;
     font-family: "SF-Pro-Display--Semibold";
@@ -65,7 +69,6 @@ button {
 // main
 
 .main {
-    z-index: 99;
 
     &__background {
         background-image: url(../img/main-page/main-bacground.png);
@@ -73,34 +76,93 @@ button {
         background-size: 100vh, 48vw;
         width: 48.59vw;
         height: 100vh;
+
+        @include _1170 {
+            background-size: 718px, 561px;
+            width: 568px;
+        }
+
+        @include _720 {
+            background-size: 720px, 720px;
+            overflow: auto;
+            width: 720px;
+        }
     }
 
     &__wrapper {
         display: flex;
         flex-direction: column;
-        justify-content: end;
+        justify-content: space-between;
         align-items: center;
+    }
+
+    &__town {
+        @include _720 {
+            margin-top: 50px;
+        }
     }
 
     &__house {
         margin-bottom: -3.7vh;
+
+        @include _1170 {
+            margin-bottom: -26px;
+        }
+
+        @include _720 {
+            margin-top: 50px;
+        }
     }
 
     &__house img {
         width: 29.27vw;
         height: 52.04vh;
+
+        @include _1170 {
+            width: 350px;
+            height: 373px;
+        }
+
+        @include _720 {
+            width: 480px;
+            height: auto;
+            margin-bottom: -50px;
+        }
     }
 
     &__bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
         background-image: url(../img/main-page/bg-bar.png);
         background-repeat: no-repeat;
         background-size: 29.27vw, 26.57vh;
         width: 29.27vw;
         height: 19.54vh;
-        padding: 0 2.86vw 11.11vh 2.86vw;
+
+        @include _1170 {
+            background-size: 350px, auto;
+            width: 356px;
+            height: auto;
+            margin-bottom: 0;
+        }
+
+        @include _720 {
+            width: 480px;
+            background-size: 480px, auto;
+            height: 400px;
+            z-index: 100;
+        }
+    }
+
+    &__bar-wrapper {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
+
+        @include _1170 {
+            margin-top: -10px;
+        }
     }
 }
 
@@ -115,11 +177,23 @@ button {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @include _1170 {
+            width: 152px;
+            height: 83px;
+        }
+
+
     }
 
     &__side img {
         width: 1.56vw;
         cursor: pointer;
+
+        @include _1170 {
+            width: 18px;
+            height: 23px;
+        }
     }
 
     &__plus img {
@@ -127,6 +201,25 @@ button {
         margin-top: -1.85vh;
         width: 5.21vw;
         height: auto;
+
+        @include _1170 {
+            margin-top: -13px;
+            width: 61px;
+        }
+    }
+
+    &__menu img {
+        width: 1.56vw;
+        cursor: pointer;
+
+        @include _1170 {
+            width: 18px;
+            height: 23px;
+        }
+
+        @include _720{
+
+        }
     }
 
 }
@@ -135,19 +228,39 @@ button {
 
 .forecast {
 
-    // &__background {}
+
+    @include _720 {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -0%);
+        transition: top 0.5s ease;
+    }
+
+    &__background {
+        @include _720 {
+            opacity: 0.95;
+        }
+    }
 
     &__wrapper {
-        width: 51.41vw;
+        width: 51.5vw;
         display: flex;
         flex-direction: column;
         justify-content: start;
+
+        @include _1170 {
+            width: 602px;
+        }
+
+        @include _720 {
+            width: 480px;
+        }
     }
 
     // future
 
     &__future {
-        // height: 39.04vh;
         background: var(--linear-black);
         display: flex;
         flex-direction: column;
@@ -155,6 +268,7 @@ button {
         align-items: center;
         overflow: hidden;
         position: relative;
+        border-radius: 50px 50px 0 0;
     }
 
     &__future-background-img1 {
@@ -172,6 +286,27 @@ button {
 
     // blur
 
+
+    &__future-button-up {
+        display: none;
+        display: flex;
+        justify-content: center;
+
+        @include _720 {
+            display: block;
+
+        }
+    }
+
+    &__future-button-up-shape {
+        width: 48px;
+        height: 5px;
+        border-radius: 10px;
+        margin: 10px;
+        background-color: var(--color-black);
+        opacity: 0.4;
+    }
+
     &__future-buttons {
         z-index: 2;
         margin-top: 2.78vh;
@@ -183,6 +318,12 @@ button {
         border-bottom: 2px solid;
         border-color: rgba($color: #FFFFFF, $alpha: .3);
         box-shadow: 0px 2px 0px rgba($color: #000000, $alpha: .2);
+
+        @include _1170 {
+            margin-top: 20px;
+            width: 300px;
+            padding: 0 30px;
+        }
     }
 
     &__future-btn {
@@ -200,13 +341,37 @@ button {
 
     &__future-cards {
         height: 45vh;
-        width: 51.41vw;
+        // width: 51.41vw;
         display: flex;
-        // justify-content: space-between;
+        justify-content: space-between;
         align-items: center;
         transition: transform 0.5s ease-in-out;
-        // overflow: hidden;
-        // position: relative;
+
+        @include _1170 {
+            height: 330px;
+            width: 602px;
+        }
+
+        @include _1100 {
+            height: 330px;
+            max-width: 540px;
+        }
+
+        @include _979 {
+            width: 474px;
+        }
+
+        @include _854 {
+            width: 417px;
+        }
+
+        @include _768 {
+            width: 370px;
+        }
+
+        @include _720 {
+            width: 480px;
+        }
     }
 
     &__future-cards-hourly {
@@ -214,10 +379,33 @@ button {
         display: flex;
         justify-content: space-around;
         flex-shrink: 0;
+
+        @include _1170 {
+            width: 602px;
+        }
+
+        @include _1100 {
+            width: 540px;
+        }
+
+        @include _979 {
+            width: 474px;
+        }
+
+        @include _854 {
+            width: 417px;
+        }
+
+        @include _768 {
+            width: 370px;
+        }
+
+        @include _720 {
+            width: 480px;
+        }
     }
 
     &__future-card {
-        margin: 0 1.11vw;
         width: 5.36vw;
         height: 22.3vh;
         border: 1px solid rgba($color: #FFFFFF, $alpha: .2);
@@ -229,6 +417,13 @@ button {
         align-items: center;
         padding: 1.48vh 0;
 
+        @include _1170 {
+            width: 62px;
+            height: 160px;
+            border-radius: 30px;
+            padding: 10px 0;
+        }
+
     }
 
     &__future-card--highlighted {
@@ -237,6 +432,10 @@ button {
 
     &__future-card-picture img {
         width: 3.33vw;
+
+        @include _1170 {
+            width: 35px;
+        }
     }
 
     // extra
@@ -245,6 +444,15 @@ button {
         padding: 2.96vh 1.67vw;
         background: var(--radial-bg-extra);
         height: 100%;
+
+        @include _1170 {
+            height: 100%;
+            padding: 20px 15px;
+        }
+
+        @include _768 {
+            overflow: scroll;
+        }
     }
 
     &__extra-wrapper {
@@ -253,6 +461,44 @@ button {
         grid-template-rows: repeat(2, 11.54vw);
         row-gap: 0.93vh;
         justify-content: space-between;
+
+        @include _1170 {
+            grid-template-columns: repeat(4, 130px);
+            grid-template-rows: repeat(2, 130px);
+            gap: 7px;
+        }
+
+        @include _1100 {
+            grid-template-columns: repeat(4, 115px);
+            grid-template-rows: repeat(2, 115px);
+        }
+
+        @include _979 {
+            grid-template-columns: repeat(3, 140px);
+            grid-template-rows: repeat(3, 140px);
+            gap: 15px;
+        }
+
+        @include _910 {
+            grid-template-columns: repeat(3, 130px);
+            grid-template-rows: repeat(3, 130px);
+        }
+
+        @include _854 {
+            grid-template-columns: repeat(3, 110px);
+            grid-template-rows: repeat(3, 110px);
+        }
+
+        @include _768 {
+            grid-template-columns: repeat(2, 170px);
+            grid-template-rows: repeat(4, 170px);
+        }
+
+        @include _720 {
+            // grid-template-columns: repeat(2, 150px);
+            // grid-template-rows: repeat(4, 150px);
+            // gap: 10px;
+        }
     }
 
     &__extra-card {
@@ -263,7 +509,11 @@ button {
         background: var(--linear-black);
         padding: 0.89vw;
         border: 1px solid rgba($color: #FFFFFF, $alpha: .5);
-        border-radius: 22px
+        border-radius: 22px;
+
+        @include _1170 {
+            padding: 8px;
+        }
     }
 
     &__extra-card--m {
@@ -277,9 +527,6 @@ button {
 
     &__extra-card-subtitle {
         width: 100%;
-        // display: flex;
-        // flex-direction: column;
-        // justify-content: space-between;
     }
 
     &__extra-card-subtitle-chart {
@@ -313,10 +560,15 @@ button {
         position: relative;
         display: flex;
         justify-content: center;
+
+        @include _1170 {
+            background-size: 80px 80px;
+            width: 80px;
+            height: 80px;
+        }
     }
 
     &__wind-arrow img {
-        // transform: rotate(45deg);
         width: 7.7vw;
     }
 
@@ -338,13 +590,12 @@ button {
 
 .city {
 
-    &__search{
-    // opacity: 0;
-    position: absolute;
-    left: 100%;
-    overflow: hidden;
-    transition: left 0.5s ease-in-out;
-    z-index: 999;
+    &__search {
+        position: absolute;
+        left: 100%;
+        overflow: hidden;
+        transition: left 0.5s ease-in-out;
+        z-index: 999;
     }
 
     &__background {
@@ -354,6 +605,10 @@ button {
     &__wrapper {
         width: 51.41vw;
         padding: 2.96vh 1.67vw;
+
+        @include _1170 {
+            max-width: 602px;
+        }
     }
 
     &__panel {
@@ -386,7 +641,6 @@ button {
 
     &__card {
         display: none;
-        // display: flex;
         justify-content: space-between;
         align-items: end;
         background-image: url(../img/main-page/city-bg-card.png);
@@ -395,7 +649,7 @@ button {
         padding: 20px;
     }
 
-    &__card--favorite{
+    &__card--favorite {
         display: flex;
     }
 
@@ -427,7 +681,7 @@ button {
     }
 }
 
-#city__card-error-search{
+#city__card-error-search {
     display: none;
     grid-column-end: span 2
 }

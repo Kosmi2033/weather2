@@ -34,7 +34,7 @@ function backAddCity() {
 //     cards.appendChild(card1); // Добавляем копию в целевой блок
 // }
 
-function delCard(element){
+function delCard(element) {
     const card = element.closest('.city__card');
     const cards = document.querySelector('#cityFavoriteCards');
 
@@ -54,6 +54,16 @@ function favoriteCity() {
     } else {
         console.log('Элемент с id="city" не найден');
     }
+}
+
+function forecastUp() {
+    const forecast = document.querySelector('.forecast')
+    if (forecast.style.top === '0%') {
+        forecast.style.top = '70%'
+    } else {
+        forecast.style.top = '0%'
+    }
+
 }
 
 // export {
