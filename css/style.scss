@@ -339,6 +339,7 @@ button {
     &__future-button-up {
         display: none;
         justify-content: center;
+        width: 100%;
 
         @include _720 {
             display: flex;
@@ -398,27 +399,6 @@ button {
             height: 330px;
             width: 100%;
         }
-
-        // @include _1100 {
-        //     height: 330px;
-        //     width: 540px;
-        // }
-
-        // @include _979 {
-        //     width: 474px;
-        // }
-
-        // @include _854 {
-        //     width: 417px;
-        // }
-
-        // @include _768 {
-        //     width: 370px;
-        // }
-
-        // @include _720 {
-        //     width: 480px;
-        // }
     }
 
     &__future-cards-hourly {
@@ -430,28 +410,6 @@ button {
         @include _1170 {
             width: 100%;
         }
-
-
-
-        // @include _1100 {
-        //     width: 540px;
-        // }
-
-        // @include _979 {
-        //     width: 474px;
-        // }
-
-        // @include _854 {
-        //     width: 417px;
-        // }
-
-        // @include _768 {
-        //     width: 370px;
-        // }
-
-        // @include _720 {
-        //     width: 480px;
-        // }
     }
 
     &__future-card {
@@ -507,6 +465,10 @@ button {
 
         @include _768 {
             overflow: scroll;
+        }
+
+        @include _720{
+            padding-bottom: 60px;
         }
     }
 

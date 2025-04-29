@@ -311,6 +311,7 @@ button {
 .forecast__future-button-up {
   display: none;
   justify-content: center;
+  width: 100%;
 }
 @media (max-width: 720px) {
   .forecast__future-button-up {
@@ -430,6 +431,11 @@ button {
 @media (max-width: 768px) {
   .forecast__extra {
     overflow: scroll;
+  }
+}
+@media (max-width: 720px) {
+  .forecast__extra {
+    padding-bottom: 60px;
   }
 }
 .forecast__extra-wrapper {
