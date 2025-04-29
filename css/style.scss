@@ -48,7 +48,7 @@ body {
     position: relative;
     transition: transform 0.5s ease-in-out;
 
-    @include _1170{
+    @include _1170 {
         width: 1170px;
     }
 }
@@ -74,15 +74,15 @@ button {
 
 .main {
 
-    @include _1170{
+    @include _1170 {
         width: 40%;
     }
 
-    @include _815{
+    @include _815 {
         width: 50%;
     }
 
-    @include _720{
+    @include _720 {
         width: 100%;
     }
 
@@ -110,6 +110,10 @@ button {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+
+        @include _480{
+            width: 100%;
+        }
     }
 
     &__town {
@@ -128,6 +132,10 @@ button {
         @include _720 {
             margin-top: 50px;
         }
+
+        @include _480{
+            width: 100%;
+        }
     }
 
     &__house img {
@@ -143,6 +151,10 @@ button {
             width: 480px;
             height: auto;
             margin-bottom: -50px;
+        }
+
+        @include _480{
+            width: 100%;
         }
     }
 
@@ -166,8 +178,13 @@ button {
         @include _720 {
             width: 480px;
             background-size: 480px, auto;
-            height: 400px;
+            height: 100px;
             z-index: 100;
+        }
+
+        @include _480{
+            background-size: 100%, auto;
+            width: 100%;
         }
     }
 
@@ -245,16 +262,21 @@ button {
         width: 60%;
     }
 
-    @include _815{
+    @include _815 {
         width: 50%;
     }
 
     @include _720 {
+        width: 480px;
         position: absolute;
         top: 70%;
         left: 50%;
         transform: translate(-50%, -0%);
         transition: top 0.5s ease;
+    }
+
+    @include _480{
+        width: 100%;
     }
 
     &__background {
@@ -269,7 +291,7 @@ button {
         flex-direction: column;
         justify-content: start;
 
-        @include _1170{
+        @include _1170 {
             width: 100%;
         }
 
@@ -471,7 +493,7 @@ button {
         padding: 2.96vh 1.67vw;
         background: var(--radial-bg-extra);
         height: 100%;
-        overflow: scroll;
+        // overflow: scroll;
 
         @include _1170 {
             width: 100%;
@@ -479,7 +501,7 @@ button {
             padding: 20px 15px;
         }
 
-        @include _1100{
+        @include _1100 {
             padding: 20px 15px;
         }
 
@@ -521,7 +543,7 @@ button {
         //     grid-template-rows: repeat(3, 110px);
         // }
 
-        @include _815{
+        @include _815 {
             grid-template-columns: repeat(2, 165px);
             grid-template-rows: repeat(4, 165px);
         }
@@ -746,4 +768,3 @@ button {
         font-size: 4rem;
     }
 }
-

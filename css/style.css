@@ -102,6 +102,11 @@ button {
   justify-content: space-between;
   align-items: center;
 }
+@media (max-width: 480px) {
+  .main__wrapper {
+    width: 100%;
+  }
+}
 @media (max-width: 720px) {
   .main__town {
     margin-top: 50px;
@@ -120,6 +125,11 @@ button {
     margin-top: 50px;
   }
 }
+@media (max-width: 480px) {
+  .main__house {
+    width: 100%;
+  }
+}
 .main__house img {
   width: 29.27vw;
   height: 52.04vh;
@@ -135,6 +145,11 @@ button {
     width: 480px;
     height: auto;
     margin-bottom: -50px;
+  }
+}
+@media (max-width: 480px) {
+  .main__house img {
+    width: 100%;
   }
 }
 .main__bar {
@@ -159,8 +174,14 @@ button {
   .main__bar {
     width: 480px;
     background-size: 480px, auto;
-    height: 400px;
+    height: 100px;
     z-index: 100;
+  }
+}
+@media (max-width: 480px) {
+  .main__bar {
+    background-size: 100%, auto;
+    width: 100%;
   }
 }
 .main__bar-wrapper {
@@ -234,11 +255,17 @@ button {
 }
 @media (max-width: 720px) {
   .forecast {
+    width: 480px;
     position: absolute;
     top: 70%;
     left: 50%;
     transform: translate(-50%, 0%);
     transition: top 0.5s ease;
+  }
+}
+@media (max-width: 480px) {
+  .forecast {
+    width: 100%;
   }
 }
 @media (max-width: 720px) {
@@ -387,7 +414,6 @@ button {
   padding: 2.96vh 1.67vw;
   background: var(--radial-bg-extra);
   height: 100%;
-  overflow: scroll;
 }
 @media (max-width: 1170px) {
   .forecast__extra {
