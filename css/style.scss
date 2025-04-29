@@ -47,6 +47,10 @@ body {
     overflow: hidden;
     position: relative;
     transition: transform 0.5s ease-in-out;
+
+    @include _1170{
+        width: 1170px;
+    }
 }
 
 .container {
@@ -70,6 +74,18 @@ button {
 
 .main {
 
+    @include _1170{
+        width: 40%;
+    }
+
+    @include _815{
+        width: 50%;
+    }
+
+    @include _720{
+        width: 100%;
+    }
+
     &__background {
         background-image: url(../img/main-page/main-bacground.png);
         background-repeat: no-repeat;
@@ -79,13 +95,13 @@ button {
 
         @include _1170 {
             background-size: 718px, 561px;
-            width: 568px;
+            width: 100%;
         }
 
         @include _720 {
             background-size: 720px, 720px;
             overflow: auto;
-            width: 720px;
+            width: 100%;
         }
     }
 
@@ -217,9 +233,7 @@ button {
             height: 23px;
         }
 
-        @include _720{
-
-        }
+        @include _720 {}
     }
 
 }
@@ -227,7 +241,13 @@ button {
 // forecast
 
 .forecast {
+    @include _1170 {
+        width: 60%;
+    }
 
+    @include _815{
+        width: 50%;
+    }
 
     @include _720 {
         position: absolute;
@@ -249,13 +269,17 @@ button {
         flex-direction: column;
         justify-content: start;
 
-        @include _1170 {
-            width: 602px;
+        @include _1170{
+            width: 100%;
         }
 
-        @include _720 {
-            width: 480px;
-        }
+        // @include _1100{
+        //     width: 100%;
+        // }
+
+        // @include _720 {
+        //     width: 100%;
+        // }
     }
 
     // future
@@ -268,7 +292,10 @@ button {
         align-items: center;
         overflow: hidden;
         position: relative;
-        border-radius: 50px 50px 0 0;
+
+        @include _720 {
+            border-radius: 50px 50px 0 0;
+        }
     }
 
     &__future-background-img1 {
@@ -289,12 +316,10 @@ button {
 
     &__future-button-up {
         display: none;
-        display: flex;
         justify-content: center;
 
         @include _720 {
-            display: block;
-
+            display: flex;
         }
     }
 
@@ -349,29 +374,29 @@ button {
 
         @include _1170 {
             height: 330px;
-            width: 602px;
+            width: 100%;
         }
 
-        @include _1100 {
-            height: 330px;
-            max-width: 540px;
-        }
+        // @include _1100 {
+        //     height: 330px;
+        //     width: 540px;
+        // }
 
-        @include _979 {
-            width: 474px;
-        }
+        // @include _979 {
+        //     width: 474px;
+        // }
 
-        @include _854 {
-            width: 417px;
-        }
+        // @include _854 {
+        //     width: 417px;
+        // }
 
-        @include _768 {
-            width: 370px;
-        }
+        // @include _768 {
+        //     width: 370px;
+        // }
 
-        @include _720 {
-            width: 480px;
-        }
+        // @include _720 {
+        //     width: 480px;
+        // }
     }
 
     &__future-cards-hourly {
@@ -381,28 +406,30 @@ button {
         flex-shrink: 0;
 
         @include _1170 {
-            width: 602px;
+            width: 100%;
         }
 
-        @include _1100 {
-            width: 540px;
-        }
 
-        @include _979 {
-            width: 474px;
-        }
 
-        @include _854 {
-            width: 417px;
-        }
+        // @include _1100 {
+        //     width: 540px;
+        // }
 
-        @include _768 {
-            width: 370px;
-        }
+        // @include _979 {
+        //     width: 474px;
+        // }
 
-        @include _720 {
-            width: 480px;
-        }
+        // @include _854 {
+        //     width: 417px;
+        // }
+
+        // @include _768 {
+        //     width: 370px;
+        // }
+
+        // @include _720 {
+        //     width: 480px;
+        // }
     }
 
     &__future-card {
@@ -444,9 +471,15 @@ button {
         padding: 2.96vh 1.67vw;
         background: var(--radial-bg-extra);
         height: 100%;
+        overflow: scroll;
 
         @include _1170 {
+            width: 100%;
             height: 100%;
+            padding: 20px 15px;
+        }
+
+        @include _1100{
             padding: 20px 15px;
         }
 
@@ -463,36 +496,40 @@ button {
         justify-content: space-between;
 
         @include _1170 {
-            grid-template-columns: repeat(4, 130px);
-            grid-template-rows: repeat(2, 130px);
+            grid-template-columns: repeat(4, 150px);
+            grid-template-rows: repeat(2, 150px);
             gap: 7px;
         }
 
         @include _1100 {
-            grid-template-columns: repeat(4, 115px);
-            grid-template-rows: repeat(2, 115px);
+            grid-template-columns: repeat(4, 140px);
+            grid-template-rows: repeat(2, 140px);
         }
 
         @include _979 {
-            grid-template-columns: repeat(3, 140px);
-            grid-template-rows: repeat(3, 140px);
-            gap: 15px;
+            grid-template-columns: repeat(4, 130px);
+            grid-template-rows: repeat(2, 130px);
         }
 
         @include _910 {
-            grid-template-columns: repeat(3, 130px);
-            grid-template-rows: repeat(3, 130px);
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
         }
 
-        @include _854 {
-            grid-template-columns: repeat(3, 110px);
-            grid-template-rows: repeat(3, 110px);
+        // @include _854 {
+        //     grid-template-columns: repeat(3, 110px);
+        //     grid-template-rows: repeat(3, 110px);
+        // }
+
+        @include _815{
+            grid-template-columns: repeat(2, 165px);
+            grid-template-rows: repeat(4, 165px);
         }
 
-        @include _768 {
-            grid-template-columns: repeat(2, 170px);
-            grid-template-rows: repeat(4, 170px);
-        }
+        // @include _768 {
+        //     grid-template-columns: repeat(2, 170px);
+        //     grid-template-rows: repeat(4, 170px);
+        // }
 
         @include _720 {
             // grid-template-columns: repeat(2, 150px);
@@ -709,3 +746,4 @@ button {
         font-size: 4rem;
     }
 }
+
