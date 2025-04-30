@@ -93,7 +93,6 @@ button {
 
 
         @include _720 {
-            background-size: 720px, 720px;
             overflow: auto;
             width: 100%;
         }
@@ -114,6 +113,10 @@ button {
         @include _720 {
             margin-top: 50px;
         }
+    }
+
+    &__house-wrapper{
+        width: 100%;
     }
 
     &__house {
@@ -137,43 +140,28 @@ button {
     }
 
     &__bar {
+        position: relative;
+        z-index: 99;
         display: flex;
         flex-direction: column;
         justify-content: start;
         background-image: url(../img/main-page/bg-bar.png);
         background-repeat: no-repeat;
-        background-size: 356px, auto;
-        width: 356px;
+        background-size: 100%, auto;
+        width: 100%;
         height: auto;
-        margin-bottom: 0;
-
-
-        @include _720 {
-            width: 480px;
-            background-size: 480px, auto;
-            height: 100px;
-            z-index: 100;
-        }
-
-        @include _480 {
-            background-size: 100%, auto;
-            width: 100%;
-        }
+        margin-top: -25px;
     }
 
     &__bar-wrapper {
         display: flex;
         justify-content: space-around;
         align-items: center;
-
-        @include _1170 {
-            margin-top: -10px;
-        }
+        width: 100%;
     }
 }
 
 .bar {
-z-index: 99999;
     &__plus {
         background-image: url(../img/main-page/bg-bar-plus.png);
         background-repeat: no-repeat;
@@ -181,19 +169,12 @@ z-index: 99999;
         display: flex;
         justify-content: center;
         align-items: center;
-
-        z-index: 99999;
         width: 152px;
         height: 83px;
-
-
-
     }
 
     &__side img {
         cursor: pointer;
-
-
         width: 18px;
         height: 23px;
 
@@ -224,7 +205,6 @@ z-index: 99999;
 
 .forecast {
     width: 60%;
-
 
     @include _815 {
         width: 50%;
