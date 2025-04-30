@@ -87,9 +87,8 @@ button {
     &__background {
         background-image: url(../img/main-page/main-bacground.png);
         background-repeat: no-repeat;
-        height: 100vh;
-
-        background-size: 718px, 561px;
+        background-size: cover;
+        background-position: center;
         width: 100%;
 
 
@@ -118,24 +117,10 @@ button {
     }
 
     &__house {
-        margin-bottom: -3.7vh;
-
-        @include _1170 {
-            margin-bottom: -26px;
-        }
-
-        @include _720 {
-            margin-top: 50px;
-        }
-
-        @include _480 {
-            width: 100%;
-        }
+        width: 100%;
     }
 
     &__house img {
-
-
         width: 350px;
         height: 373px;
 
@@ -157,7 +142,6 @@ button {
         justify-content: start;
         background-image: url(../img/main-page/bg-bar.png);
         background-repeat: no-repeat;
-
         background-size: 356px, auto;
         width: 356px;
         height: auto;
@@ -189,7 +173,7 @@ button {
 }
 
 .bar {
-
+z-index: 99999;
     &__plus {
         background-image: url(../img/main-page/bg-bar-plus.png);
         background-repeat: no-repeat;
@@ -198,7 +182,7 @@ button {
         justify-content: center;
         align-items: center;
 
-
+        z-index: 99999;
         width: 152px;
         height: 83px;
 
@@ -232,7 +216,6 @@ button {
         height: 23px;
 
 
-        @include _720 {}
     }
 
 }
@@ -591,6 +574,18 @@ button {
         display: grid;
         grid-template-columns: repeat(2, 49%);
         justify-content: space-between;
+
+        @include _815 {
+            grid-template-columns: repeat(1, 100%);
+        }
+
+        @include _720 {
+            grid-template-columns: repeat(2, 49%);
+        }
+
+        @include _480 {
+            grid-template-columns: repeat(1, 100%);
+        }
     }
 
     &__card {
@@ -598,8 +593,9 @@ button {
         justify-content: space-between;
         align-items: end;
         background-image: url(../img/main-page/city-bg-card.png);
+        // background-size: 100%, auto;
+        // width: 100%;
         background-repeat: no-repeat;
-        background-size: contain;
         padding: 20px;
     }
 
