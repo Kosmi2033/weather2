@@ -1,4 +1,3 @@
-// @import 'path_file.scss';
 @import '_media-mixin.scss';
 
 // @use '_fonts-size.scss';
@@ -40,7 +39,6 @@ body {
 }
 
 .all-container {
-    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: space-between;
@@ -48,9 +46,9 @@ body {
     position: relative;
     transition: transform 0.5s ease-in-out;
 
-    @include _1170 {
-        width: 1170px;
-    }
+
+    width: 1170px;
+
 }
 
 .container {
@@ -74,9 +72,9 @@ button {
 
 .main {
 
-    @include _1170 {
-        width: 40%;
-    }
+
+    width: 40%;
+
 
     @include _815 {
         width: 50%;
@@ -89,14 +87,11 @@ button {
     &__background {
         background-image: url(../img/main-page/main-bacground.png);
         background-repeat: no-repeat;
-        background-size: 100vh, 48vw;
-        width: 48.59vw;
         height: 100vh;
 
-        @include _1170 {
-            background-size: 718px, 561px;
-            width: 100%;
-        }
+        background-size: 718px, 561px;
+        width: 100%;
+
 
         @include _720 {
             background-size: 720px, 720px;
@@ -111,7 +106,7 @@ button {
         justify-content: space-between;
         align-items: center;
 
-        @include _480{
+        @include _480 {
             width: 100%;
         }
     }
@@ -133,19 +128,17 @@ button {
             margin-top: 50px;
         }
 
-        @include _480{
+        @include _480 {
             width: 100%;
         }
     }
 
     &__house img {
-        width: 29.27vw;
-        height: 52.04vh;
 
-        @include _1170 {
-            width: 350px;
-            height: 373px;
-        }
+
+        width: 350px;
+        height: 373px;
+
 
         @include _720 {
             width: 480px;
@@ -153,7 +146,7 @@ button {
             margin-bottom: -50px;
         }
 
-        @include _480{
+        @include _480 {
             width: 100%;
         }
     }
@@ -164,16 +157,12 @@ button {
         justify-content: start;
         background-image: url(../img/main-page/bg-bar.png);
         background-repeat: no-repeat;
-        background-size: 29.27vw, 26.57vh;
-        width: 29.27vw;
-        height: 19.54vh;
 
-        @include _1170 {
-            background-size: 350px, auto;
-            width: 356px;
-            height: auto;
-            margin-bottom: 0;
-        }
+        background-size: 356px, auto;
+        width: 356px;
+        height: auto;
+        margin-bottom: 0;
+
 
         @include _720 {
             width: 480px;
@@ -182,7 +171,7 @@ button {
             z-index: 100;
         }
 
-        @include _480{
+        @include _480 {
             background-size: 100%, auto;
             width: 100%;
         }
@@ -205,50 +194,43 @@ button {
         background-image: url(../img/main-page/bg-bar-plus.png);
         background-repeat: no-repeat;
         background-size: contain;
-        width: 13.02vw;
-        height: 11.57vh;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        @include _1170 {
-            width: 152px;
-            height: 83px;
-        }
+
+        width: 152px;
+        height: 83px;
+
 
 
     }
 
     &__side img {
-        width: 1.56vw;
         cursor: pointer;
 
-        @include _1170 {
-            width: 18px;
-            height: 23px;
-        }
+
+        width: 18px;
+        height: 23px;
+
     }
 
     &__plus img {
         cursor: pointer;
-        margin-top: -1.85vh;
-        width: 5.21vw;
         height: auto;
 
-        @include _1170 {
-            margin-top: -13px;
-            width: 61px;
-        }
+
+        margin-top: -13px;
+        width: 61px;
+
     }
 
     &__menu img {
-        width: 1.56vw;
         cursor: pointer;
 
-        @include _1170 {
-            width: 18px;
-            height: 23px;
-        }
+        width: 18px;
+        height: 23px;
+
 
         @include _720 {}
     }
@@ -258,9 +240,8 @@ button {
 // forecast
 
 .forecast {
-    @include _1170 {
-        width: 60%;
-    }
+    width: 60%;
+
 
     @include _815 {
         width: 50%;
@@ -275,7 +256,7 @@ button {
         transition: top 0.5s ease;
     }
 
-    @include _480{
+    @include _480 {
         width: 100%;
     }
 
@@ -286,22 +267,13 @@ button {
     }
 
     &__wrapper {
-        width: 51.5vw;
         display: flex;
         flex-direction: column;
         justify-content: start;
 
-        @include _1170 {
-            width: 100%;
-        }
+        width: 100%;
 
-        // @include _1100{
-        //     width: 100%;
-        // }
 
-        // @include _720 {
-        //     width: 100%;
-        // }
     }
 
     // future
@@ -357,21 +329,16 @@ button {
 
     &__future-buttons {
         z-index: 2;
-        margin-top: 2.78vh;
-        width: 20.31vw;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 2.96vw;
         border-bottom: 2px solid;
         border-color: rgba($color: #FFFFFF, $alpha: .3);
         box-shadow: 0px 2px 0px rgba($color: #000000, $alpha: .2);
 
-        @include _1170 {
-            margin-top: 20px;
-            width: 300px;
-            padding: 0 30px;
-        }
+        margin-top: 20px;
+        width: 300px;
+        padding: 0 30px;
     }
 
     &__future-btn {
@@ -388,17 +355,14 @@ button {
     }
 
     &__future-cards {
-        height: 45vh;
-        // width: 51.41vw;
         display: flex;
         justify-content: space-between;
         align-items: center;
         transition: transform 0.5s ease-in-out;
 
-        @include _1170 {
-            height: 330px;
-            width: 100%;
-        }
+        height: 330px;
+        width: 100%;
+
     }
 
     &__future-cards-hourly {
@@ -407,29 +371,21 @@ button {
         justify-content: space-around;
         flex-shrink: 0;
 
-        @include _1170 {
-            width: 100%;
-        }
     }
 
     &__future-card {
-        width: 5.36vw;
-        height: 22.3vh;
         border: 1px solid rgba($color: #FFFFFF, $alpha: .2);
-        border-radius: 2.66vw;
         background-color: rgba($color: var(--solid-purple), $alpha: .2);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 1.48vh 0;
 
-        @include _1170 {
-            width: 62px;
-            height: 160px;
-            border-radius: 30px;
-            padding: 10px 0;
-        }
+        width: 62px;
+        height: 160px;
+        border-radius: 30px;
+        padding: 10px 0;
+
 
     }
 
@@ -438,26 +394,21 @@ button {
     }
 
     &__future-card-picture img {
-        width: 3.33vw;
 
-        @include _1170 {
-            width: 35px;
-        }
+        width: 35px;
+
     }
 
     // extra
 
     &__extra {
-        padding: 2.96vh 1.67vw;
         background: var(--radial-bg-extra);
         height: 100%;
-        // overflow: scroll;
 
-        @include _1170 {
-            width: 100%;
-            height: 100%;
-            padding: 20px 15px;
-        }
+        width: 100%;
+        height: 100%;
+        padding: 20px 15px;
+
 
         @include _1100 {
             padding: 20px 15px;
@@ -467,23 +418,20 @@ button {
             overflow: scroll;
         }
 
-        @include _720{
+        @include _720 {
             padding-bottom: 100px;
         }
     }
 
     &__extra-wrapper {
         display: grid;
-        grid-template-columns: repeat(4, 11.54vw);
-        grid-template-rows: repeat(2, 11.54vw);
-        row-gap: 0.93vh;
         justify-content: space-between;
 
-        @include _1170 {
-            grid-template-columns: repeat(4, 150px);
-            grid-template-rows: repeat(2, 150px);
-            gap: 7px;
-        }
+
+        grid-template-columns: repeat(4, 150px);
+        grid-template-rows: repeat(2, 150px);
+        gap: 7px;
+
 
         @include _1100 {
             grid-template-columns: repeat(4, 140px);
@@ -500,26 +448,11 @@ button {
             grid-template-rows: repeat(3, 150px);
         }
 
-        // @include _854 {
-        //     grid-template-columns: repeat(3, 110px);
-        //     grid-template-rows: repeat(3, 110px);
-        // }
-
         @include _815 {
             grid-template-columns: repeat(2, 165px);
             grid-template-rows: repeat(4, 165px);
         }
 
-        // @include _768 {
-        //     grid-template-columns: repeat(2, 170px);
-        //     grid-template-rows: repeat(4, 170px);
-        // }
-
-        @include _720 {
-            // grid-template-columns: repeat(2, 150px);
-            // grid-template-rows: repeat(4, 150px);
-            // gap: 10px;
-        }
     }
 
     &__extra-card {
@@ -528,13 +461,11 @@ button {
         justify-content: space-around;
         align-items: start;
         background: var(--linear-black);
-        padding: 0.89vw;
         border: 1px solid rgba($color: #FFFFFF, $alpha: .5);
         border-radius: 22px;
 
-        @include _1170 {
-            padding: 8px;
-        }
+        padding: 8px;
+
     }
 
     &__extra-card--m {
@@ -552,7 +483,7 @@ button {
 
     &__extra-card-subtitle-chart {
         width: 100%;
-        height: 0.7vh;
+        height: 8px;
         background-image: var(--linear-blue-pink);
         border-radius: 22px;
         position: relative;
@@ -572,9 +503,6 @@ button {
     &__wind-bg {
         background-image: url(../img/main-page/WIND.png);
         background-repeat: no-repeat;
-        background-size: 6.94vw 6.94vw;
-        width: 6.94vw;
-        height: 6.94vw;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -582,15 +510,14 @@ button {
         display: flex;
         justify-content: center;
 
-        @include _1170 {
-            background-size: 80px 80px;
-            width: 80px;
-            height: 80px;
-        }
+        background-size: 80px 80px;
+        width: 80px;
+        height: 80px;
+
     }
 
     &__wind-arrow img {
-        width: 7.7vw;
+        width: 90px;
     }
 
     &__extra-card-subtitle--center {
@@ -617,6 +544,19 @@ button {
         overflow: hidden;
         transition: left 0.5s ease-in-out;
         z-index: 999;
+        width: 60%;
+
+        @include _815 {
+            width: 50%;
+        }
+
+        @include _720 {
+            width: 100%;
+        }
+
+        @include _480 {
+            width: 100%;
+        }
     }
 
     &__background {
@@ -624,12 +564,7 @@ button {
     }
 
     &__wrapper {
-        width: 51.41vw;
-        padding: 2.96vh 1.67vw;
-
-        @include _1170 {
-            max-width: 602px;
-        }
+        width: 90%;
     }
 
     &__panel {
@@ -654,9 +589,7 @@ button {
 
     &__cards {
         display: grid;
-        grid-template-columns: repeat(2, 23.08vw);
-        // grid-template-rows: repeat(2, 11.54vw);
-        // row-gap: 0.93vh;
+        grid-template-columns: repeat(2, 49%);
         justify-content: space-between;
     }
 
@@ -707,9 +640,6 @@ button {
     grid-column-end: span 2
 }
 
-// .container{
-//     display: block;
-// }
 
 
 
