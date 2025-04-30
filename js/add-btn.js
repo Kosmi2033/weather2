@@ -50,8 +50,12 @@ function favoriteCity() {
 
 function forecastUp() {
     const forecast = document.querySelector('.forecast')
+    const house = document.querySelector('.main__house')
+    const bar = document.querySelector('.main__bar')
+
     if (forecast.style.top === '0%') {
         forecast.style.top = '70%'
+        
     } else {
         forecast.style.top = '0%'
     }

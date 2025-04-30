@@ -100,9 +100,14 @@ button {
 }
 .main__house-wrapper {
   width: 100%;
+  position: relative;
 }
 .main__house {
   width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .main__house img {
   width: 350px;

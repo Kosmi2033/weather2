@@ -117,10 +117,16 @@ button {
 
     &__house-wrapper{
         width: 100%;
+        
+        position: relative;
     }
 
     &__house {
         width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     &__house img {
