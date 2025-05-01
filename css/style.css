@@ -96,10 +96,8 @@ button {
     width: 100%;
   }
 }
-@media (max-width: 720px) {
-  .main__town {
-    margin-top: 50px;
-  }
+.main__town {
+  margin-top: 50px;
 }
 .main__house-wrapper {
   width: 100%;
@@ -487,6 +485,7 @@ button {
   width: 90%;
 }
 .city__panel {
+  margin: 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -500,6 +499,15 @@ button {
   margin-right: 20px;
 }
 .city__search input {
+  background-color: var(--linear-black);
+  background-image: url(../img/main-page/search.png);
+  background-repeat: no-repeat;
+  background-position: 8px 50%;
+  padding: 0 30px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.37) inset;
+  height: 36px;
   width: 100%;
 }
 .city__cards {

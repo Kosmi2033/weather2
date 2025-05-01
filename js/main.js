@@ -334,7 +334,8 @@ function updateFavoritesList() {
         </div>
       </div>
       <div class="city__card-add-inf">
-<img class="city__card-add-inf-img" src="" alt="img weather">        <button onclick="removeFromFavorites('${city.name}')">
+        <img class="city__card-add-inf-img" src="" alt="img weather"> 
+        <button onclick="removeFromFavorites('${city.name}')">
           <img src="img/main-page/stars/star-after.png" alt="">
         </button>
       </div>
@@ -389,7 +390,6 @@ async function miniCards(cityName) {
     cityCard.querySelector('#miniCardsCity').textContent = `${weatherData.city.name}, ${weatherData.city.country}`;
     cityCard.querySelector('#city__card-main-inf-bottom-humidity').textContent = `H: ${weatherData.list[0].main.humidity}%`;
     cityCard.querySelector('#city__card-main-inf-bottom-likes').textContent = `L: ${Math.round(weatherData.list[0].main.feels_like - 273)}`;
-    console.log(weatherData.list[0].weather[0].icon)
     weatherIcon(weatherData.list[0].weather[0].icon, document.querySelector('.city__card-add-inf-img'))
 
     // Обновляем обработчик кнопки "добавить в избранное"
