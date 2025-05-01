@@ -123,10 +123,6 @@ button {
 
     &__house {
         width: 100%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
     }
 
     &__house img {
@@ -157,6 +153,7 @@ button {
         width: 100%;
         height: auto;
         margin-top: -25px;
+        transition: transform 0.5s ease-in-out;
     }
 
     &__bar-wrapper {
@@ -373,28 +370,19 @@ button {
     &__extra {
         background: var(--radial-bg-extra);
         height: 100%;
-
+        padding-top: 20px;
         width: 100%;
         height: 100%;
-        padding: 20px 15px;
-
-
-        @include _1100 {
-            padding: 20px 15px;
-        }
 
         @include _768 {
             overflow: scroll;
         }
 
-        @include _720 {
-            padding-bottom: 100px;
-        }
     }
 
     &__extra-wrapper {
         display: grid;
-        justify-content: space-between;
+        justify-content: space-around;
 
 
         grid-template-columns: repeat(4, 150px);
@@ -418,6 +406,21 @@ button {
         }
 
         @include _815 {
+            grid-template-columns: repeat(2, 165px);
+            grid-template-rows: repeat(4, 165px);
+        }
+
+        @include _720{
+            grid-template-columns: repeat(3, 140px);
+            grid-template-rows: repeat(3, 140px);
+        }
+
+        @include _480{
+            grid-template-columns: repeat(3, 130px);
+            grid-template-rows: repeat(3, 125px);
+        }
+
+        @include _400{
             grid-template-columns: repeat(2, 165px);
             grid-template-rows: repeat(4, 165px);
         }
