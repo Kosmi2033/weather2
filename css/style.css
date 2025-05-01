@@ -72,13 +72,12 @@ button {
 .main__background {
   background-image: url(../img/main-page/main-bacground.png);
   background-repeat: no-repeat;
-  height: 100vh;
-  background-size: 718px, 561px;
+  background-size: cover;
+  background-position: center;
   width: 100%;
 }
 @media (max-width: 720px) {
   .main__background {
-    background-size: 720px, 720px;
     overflow: auto;
     width: 100%;
   }
@@ -99,23 +98,16 @@ button {
     margin-top: 50px;
   }
 }
+.main__house-wrapper {
+  width: 100%;
+  position: relative;
+}
 .main__house {
-  margin-bottom: -3.7vh;
-}
-@media (max-width: 1170px) {
-  .main__house {
-    margin-bottom: -26px;
-  }
-}
-@media (max-width: 720px) {
-  .main__house {
-    margin-top: 50px;
-  }
-}
-@media (max-width: 480px) {
-  .main__house {
-    width: 100%;
-  }
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .main__house img {
   width: 350px;
@@ -134,39 +126,23 @@ button {
   }
 }
 .main__bar {
+  position: relative;
+  z-index: 99;
   display: flex;
   flex-direction: column;
   justify-content: start;
   background-image: url(../img/main-page/bg-bar.png);
   background-repeat: no-repeat;
-  background-size: 356px, auto;
-  width: 356px;
+  background-size: 100%, auto;
+  width: 100%;
   height: auto;
-  margin-bottom: 0;
-}
-@media (max-width: 720px) {
-  .main__bar {
-    width: 480px;
-    background-size: 480px, auto;
-    height: 100px;
-    z-index: 100;
-  }
-}
-@media (max-width: 480px) {
-  .main__bar {
-    background-size: 100%, auto;
-    width: 100%;
-  }
+  margin-top: -25px;
 }
 .main__bar-wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-@media (max-width: 1170px) {
-  .main__bar-wrapper {
-    margin-top: -10px;
-  }
+  width: 100%;
 }
 
 .bar__plus {
@@ -195,6 +171,7 @@ button {
   width: 18px;
   height: 23px;
 }
+
 .forecast {
   width: 60%;
 }
@@ -494,13 +471,27 @@ button {
   grid-template-columns: repeat(2, 49%);
   justify-content: space-between;
 }
+@media (max-width: 815px) {
+  .city__cards {
+    grid-template-columns: repeat(1, 100%);
+  }
+}
+@media (max-width: 720px) {
+  .city__cards {
+    grid-template-columns: repeat(2, 49%);
+  }
+}
+@media (max-width: 480px) {
+  .city__cards {
+    grid-template-columns: repeat(1, 100%);
+  }
+}
 .city__card {
   display: none;
   justify-content: space-between;
   align-items: end;
   background-image: url(../img/main-page/city-bg-card.png);
   background-repeat: no-repeat;
-  background-size: contain;
   padding: 20px;
 }
 .city__card--favorite {

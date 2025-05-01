@@ -87,14 +87,12 @@ button {
     &__background {
         background-image: url(../img/main-page/main-bacground.png);
         background-repeat: no-repeat;
-        height: 100vh;
-
-        background-size: 718px, 561px;
+        background-size: cover;
+        background-position: center;
         width: 100%;
 
 
         @include _720 {
-            background-size: 720px, 720px;
             overflow: auto;
             width: 100%;
         }
@@ -117,25 +115,21 @@ button {
         }
     }
 
+    &__house-wrapper{
+        width: 100%;
+        
+        position: relative;
+    }
+
     &__house {
-        margin-bottom: -3.7vh;
-
-        @include _1170 {
-            margin-bottom: -26px;
-        }
-
-        @include _720 {
-            margin-top: 50px;
-        }
-
-        @include _480 {
-            width: 100%;
-        }
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     &__house img {
-
-
         width: 350px;
         height: 373px;
 
@@ -152,44 +146,28 @@ button {
     }
 
     &__bar {
+        position: relative;
+        z-index: 99;
         display: flex;
         flex-direction: column;
         justify-content: start;
         background-image: url(../img/main-page/bg-bar.png);
         background-repeat: no-repeat;
-
-        background-size: 356px, auto;
-        width: 356px;
+        background-size: 100%, auto;
+        width: 100%;
         height: auto;
-        margin-bottom: 0;
-
-
-        @include _720 {
-            width: 480px;
-            background-size: 480px, auto;
-            height: 100px;
-            z-index: 100;
-        }
-
-        @include _480 {
-            background-size: 100%, auto;
-            width: 100%;
-        }
+        margin-top: -25px;
     }
 
     &__bar-wrapper {
         display: flex;
         justify-content: space-around;
         align-items: center;
-
-        @include _1170 {
-            margin-top: -10px;
-        }
+        width: 100%;
     }
 }
 
 .bar {
-
     &__plus {
         background-image: url(../img/main-page/bg-bar-plus.png);
         background-repeat: no-repeat;
@@ -197,19 +175,12 @@ button {
         display: flex;
         justify-content: center;
         align-items: center;
-
-
         width: 152px;
         height: 83px;
-
-
-
     }
 
     &__side img {
         cursor: pointer;
-
-
         width: 18px;
         height: 23px;
 
@@ -232,7 +203,6 @@ button {
         height: 23px;
 
 
-        @include _720 {}
     }
 
 }
@@ -241,7 +211,6 @@ button {
 
 .forecast {
     width: 60%;
-
 
     @include _815 {
         width: 50%;
@@ -591,6 +560,18 @@ button {
         display: grid;
         grid-template-columns: repeat(2, 49%);
         justify-content: space-between;
+
+        @include _815 {
+            grid-template-columns: repeat(1, 100%);
+        }
+
+        @include _720 {
+            grid-template-columns: repeat(2, 49%);
+        }
+
+        @include _480 {
+            grid-template-columns: repeat(1, 100%);
+        }
     }
 
     &__card {
@@ -598,8 +579,9 @@ button {
         justify-content: space-between;
         align-items: end;
         background-image: url(../img/main-page/city-bg-card.png);
+        // background-size: 100%, auto;
+        // width: 100%;
         background-repeat: no-repeat;
-        background-size: contain;
         padding: 20px;
     }
 
