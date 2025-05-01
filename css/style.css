@@ -1,7 +1,8 @@
+@import 'background.css';
 :root {
-  --solid-purple: #48319D;
+  --solid-purple: #48319d;
   --solid-dark-gray: #1F1D47;
-  --solid-pink: #C427FB;
+  --solid-pink: #c427fb;
   --solid-gray: #E0D9FF;
   --linear-black: linear-gradient(#2E335A 0%, #1C1B33 100%);
   --linear-purple: linear-gradient(#5936B4 0%, #362A84 100%);
@@ -275,8 +276,7 @@ button {
 }
 .forecast__future-btn--active {
   border-bottom: 3px solid;
-  -o-border-image: var(--linear-active-btn);
-     border-image: var(--linear-active-btn);
+  border-image: var(--linear-active-btn);
   border-image-slice: 1;
 }
 .forecast__future-cards {
@@ -560,4 +560,4 @@ button {
 .main__temp-title {
   color: #fff;
   font-size: 4rem;
-}/*# sourceMappingURL=style.css.map */
+}

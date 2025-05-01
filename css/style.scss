@@ -1,11 +1,12 @@
 @import '_media-mixin.scss';
+@import 'background.css';
 
 // @use '_fonts-size.scss';
 :root {
     // solid
-    --solid-purple: #48319D;
+    --solid-purple: #48319d;
     --solid-dark-gray: #1F1D47;
-    --solid-pink: #C427FB;
+    --solid-pink: #c427fb;
     --solid-gray: #E0D9FF;
     // linear
     --linear-black: linear-gradient(#2E335A 0%, #1C1B33 100%);
