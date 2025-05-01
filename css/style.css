@@ -291,7 +291,8 @@ button {
 }
 .forecast__future-btn--active {
   border-bottom: 3px solid;
-  border-image: var(--linear-active-btn);
+  -o-border-image: var(--linear-active-btn);
+     border-image: var(--linear-active-btn);
   border-image-slice: 1;
 }
 .forecast__future-cards {
@@ -540,4 +541,4 @@ button {
 .main__temp-title {
   color: #fff;
   font-size: 4rem;
-}
+}/*# sourceMappingURL=style.css.map */
