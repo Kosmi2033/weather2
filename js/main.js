@@ -201,6 +201,7 @@ function updateForecast(data) {
   const futElHum = document.querySelectorAll('#forecast__future-card-humidity');
   const futElTitle = document.querySelectorAll('#forecast__future-card-title');
   const futElTemp = document.querySelectorAll('#forecast__future-card-temp');
+  const futElIcon = document.querySelectorAll('#forecast__future-card-img')
 
   // Индекс первого элемента текущего дня
   const nowHour = parseInt(data.list[0].dt_txt.slice(-8, -6));
@@ -227,13 +228,22 @@ function updateForecast(data) {
     counter > 3 ? counter = 0 : counter++;
   });
 
+  futElIcon.forEach((iconBlock, idx) => {
+    const item = data.list[counter]
+    weatherIcon(item.weather[0].icon, iconBlock);
+    counter > 3 ? counter = 0 : counter++;
+  })
+
+
+
   // Недельный прогноз
   const weekTitles = document.querySelectorAll('#forecast__future-card-title-weekly');
   const weekHumidityBlocks = document.querySelectorAll('#forecast__future-card-picture-weekly');
   const weekTemperatureBlocks = document.querySelectorAll('#forecast__future-card-temp-weekly');
+  const weekIconBlocs = document.querySelectorAll('#forecast__future-card-img-weekly')
 
   // Смещение индекса для начала нового дня
-  const firstNextDayIndex = startIndex + ((24 - nowHour) / 3); // Переводим часы в шаги по три часа
+  const firstNextDayIndex = startIndex + ((12 - nowHour) / 3); // Переводим часы в шаги по три часа
   let dayCounter = firstNextDayIndex;
   weekTitles.forEach((weekTitle, idx) => {
     const dateItem = data.list[dayCounter];
@@ -243,7 +253,6 @@ function updateForecast(data) {
 
   weekHumidityBlocks.forEach((humidityBlock, idx) => {
     dayCounter > 24 ? dayCounter = firstNextDayIndex : dayCounter += 8;
-
     const dateItem = data.list[dayCounter];
     humidityBlock.textContent = `${dateItem.main.humidity}%`;
     // dayCounter > 36 ? dayCounter = firstNextDayIndex : dayCounter += 8;
@@ -251,10 +260,15 @@ function updateForecast(data) {
 
   weekTemperatureBlocks.forEach((tempBlock, idx) => {
     dayCounter > 24 ? dayCounter = firstNextDayIndex : dayCounter += 8;
-
     const dateItem = data.list[dayCounter];
     tempBlock.textContent = `${Math.round(dateItem.main.temp - 273)}°C`;
   });
+
+  weekIconBlocs.forEach((iconBlock, idx) => {
+    dayCounter > 24 ? dayCounter = firstNextDayIndex : dayCounter += 8;
+    const item = data.list[dayCounter]
+    weatherIcon(item.weather[0].icon, iconBlock);
+  })
 }
 
 // Добавляем в начало файла
@@ -273,7 +287,7 @@ async function addToFavorites(cityName) {
     const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${API_KEY}`;
     const geoResponse = await fetch(geoUrl);
     if (!geoResponse.ok) throw new Error(`Город "${cityName}" не найден.`);
-    
+
     const geoData = await geoResponse.json();
     if (!geoData.length) throw new Error("Город не найден.");
 
@@ -285,7 +299,7 @@ async function addToFavorites(cityName) {
     if (!weatherResponse.ok) throw new Error("Ошибка загрузки погоды.");
 
     const weatherData = await weatherResponse.json();
-    
+
     // Добавляем в избранное
     favoriteCities.push({
       name: cityName,
@@ -320,19 +334,21 @@ function updateFavoritesList() {
         </div>
       </div>
       <div class="city__card-add-inf">
-        <img class="city__card-add-inf-img" src="img/icon/Moon cloud fast wind.png" alt="img weather">
-        <button onclick="removeFromFavorites('${city.name}')">
+<img class="city__card-add-inf-img" src="" alt="img weather">        <button onclick="removeFromFavorites('${city.name}')">
           <img src="img/main-page/stars/star-after.png" alt="">
         </button>
       </div>
     `;
-    
+
     // Добавляем обработчик клика на всю карточку
     card.addEventListener('click', (e) => {
       if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'IMG') {
         getWeather(city.name);
       }
     });
+
+    const imgBlock = card.querySelector('.city__card-add-inf-img');
+    weatherIcon(city.data.list[0].weather[0].icon, imgBlock);
 
     favoritesContainer.appendChild(card);
   });
@@ -353,7 +369,7 @@ async function miniCards(cityName) {
     const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityName)}&limit=1&appid=${API_KEY}`;
     const response = await fetch(geoUrl);
     if (!response.ok) throw new Error(`Ошибка поиска города "${cityName}".`);
-    
+
     const data = await response.json();
     if (!data.length) throw new Error("Город не найден.");
 
@@ -373,6 +389,8 @@ async function miniCards(cityName) {
     cityCard.querySelector('#miniCardsCity').textContent = `${weatherData.city.name}, ${weatherData.city.country}`;
     cityCard.querySelector('#city__card-main-inf-bottom-humidity').textContent = `H: ${weatherData.list[0].main.humidity}%`;
     cityCard.querySelector('#city__card-main-inf-bottom-likes').textContent = `L: ${Math.round(weatherData.list[0].main.feels_like - 273)}`;
+    console.log(weatherData.list[0].weather[0].icon)
+    weatherIcon(weatherData.list[0].weather[0].icon, document.querySelector('.city__card-add-inf-img'))
 
     // Обновляем обработчик кнопки "добавить в избранное"
     const starBtn = cityCard.querySelector('#imgCard');
@@ -400,6 +418,65 @@ function searchCity() {
   inputSearch.addEventListener('input', async e => {
     await miniCards(e.target.value.trim());
   });
+}
+
+function weatherIcon(id, block) {
+  switch (id) {
+    case '01d':
+      block.src = 'img/weather-icon/Sun.png'
+      break
+    case '01n':
+      block.src = 'img/weather-icon/Moon.png'
+      break
+    case '02d':
+      block.src = 'img/weather-icon/Sun cloud.png'
+      break
+    case '02n':
+      block.src = 'img/weather-icon/Moon cloud.png'
+      break
+    case '03d':
+      block.src = 'img/weather-icon/Cloud.png'
+      break
+    case '03n':
+      block.src = 'img/weather-icon/Cloud.png'
+      break
+    case '04d':
+      block.src = 'img/weather-icon/Cloud.png'
+      break
+    case '04n':
+      block.src = 'img/weather-icon/Cloud.png'
+      break
+    case '09d':
+      block.src = 'img/weather-icon/Cloud angled rain.png'
+      break
+    case '09n':
+      block.src = 'img/weather-icon/Cloud angled rain.png'
+      break
+    case '10d':
+      block.src = 'img/weather-icon/Sun cloud hailstone.png'
+      break
+    case '10n':
+      block.src = 'img/weather-icon/Moon cloud hailstone.png'
+      break
+    case '11d':
+      block.src = 'img/weather-icon/Sun cloud Zap.png'
+      break
+    case '11n':
+      block.src = 'img/weather-icon/Moon cloud Zap.png'
+      break
+    case '13d':
+      block.src = 'img/weather-icon/Big snow.png'
+      break
+    case '13n':
+      block.src = 'img/weather-icon/Big snow.png'
+      break
+    case '50d':
+      block.src = 'img/weather-icon/Slow winds.png'
+      break
+    case '50n':
+      block.src = 'img/weather-icon/Slow winds.png'
+      break
+  }
 }
 
 // Основной обработчик событий кнопок и инициализации
