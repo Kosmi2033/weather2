@@ -52,15 +52,25 @@ function forecastUp() {
     const forecast = document.querySelector('.forecast')
     const house = document.querySelector('.main__house')
     const bar = document.querySelector('.main__bar')
+    const town = document.querySelector('.main__town')
+    const temp = document.querySelector('.main__temp')
 
 
     if (forecast.style.top === '0%') {
         forecast.style.top = '70%'
         bar.style.transform = 'translateY(0px)'
+        house.style.transform = 'translateY(0px)'
+        house.style.opacity = '1'
+        temp.style.transform = 'translateY(0px)'
+        town.style.transform = 'translateY(0px)'
         
     } else {
         forecast.style.top = '0%'
         bar.style.transform = 'translateY(100px)'
+        house.style.transform = 'translateY(-50vh)'
+        house.style.opacity = '.1'
+        temp.style.transform = 'translateY(-50vh)'
+        town.style.transform = 'translateY(-50vh)'
     }
 
 }

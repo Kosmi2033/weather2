@@ -112,16 +112,21 @@ button {
 
     &__town {
         margin-top: 50px;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    &__temp{
+        transition: transform 0.5s ease-in-out;
     }
 
     &__house-wrapper {
         width: 100%;
-
         position: relative;
     }
 
     &__house {
         width: 100%;
+        transition: transform 0.3s ease-in-out;
     }
 
     &__house img {
