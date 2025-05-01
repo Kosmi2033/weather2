@@ -45,10 +45,7 @@ body {
     overflow: hidden;
     position: relative;
     transition: transform 0.5s ease-in-out;
-
-
     width: 1170px;
-
 }
 
 .container {
@@ -115,9 +112,9 @@ button {
         }
     }
 
-    &__house-wrapper{
+    &__house-wrapper {
         width: 100%;
-        
+
         position: relative;
     }
 
@@ -236,15 +233,14 @@ button {
         display: flex;
         flex-direction: column;
         justify-content: start;
-
         width: 100%;
-
-
     }
 
     // future
 
     &__future {
+        height: auto;
+        min-height: 250px;
         background: var(--linear-black);
         display: flex;
         flex-direction: column;
@@ -278,10 +274,17 @@ button {
         display: none;
         justify-content: center;
         width: 100%;
+        height: auto;
 
         @include _720 {
             display: flex;
         }
+    }
+
+    &__future-button-up button{
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     &__future-button-up-shape {
@@ -325,15 +328,16 @@ button {
         justify-content: space-between;
         align-items: center;
         transition: transform 0.5s ease-in-out;
-
-        height: 330px;
+        height: 100%;
         width: 100%;
 
     }
 
     &__future-cards-hourly {
+        height: 100%;
         width: 100%;
         display: flex;
+        align-items: center;
         justify-content: space-around;
         flex-shrink: 0;
 
@@ -346,13 +350,15 @@ button {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-
         width: 62px;
         height: 160px;
         border-radius: 30px;
         padding: 10px 0;
 
-
+        @include _350 {
+            width: 50px;
+            height: 145px;
+        }
     }
 
     &__future-card--highlighted {
@@ -369,7 +375,6 @@ button {
 
     &__extra {
         background: var(--radial-bg-extra);
-        height: 100%;
         padding-top: 20px;
         width: 100%;
         height: 100%;
@@ -377,7 +382,6 @@ button {
         @include _768 {
             overflow: scroll;
         }
-
     }
 
     &__extra-wrapper {
@@ -410,19 +414,24 @@ button {
             grid-template-rows: repeat(4, 165px);
         }
 
-        @include _720{
+        @include _720 {
             grid-template-columns: repeat(3, 140px);
             grid-template-rows: repeat(3, 140px);
         }
 
-        @include _480{
+        @include _480 {
             grid-template-columns: repeat(3, 130px);
             grid-template-rows: repeat(3, 125px);
         }
 
-        @include _400{
+        @include _400 {
             grid-template-columns: repeat(2, 165px);
             grid-template-rows: repeat(4, 165px);
+        }
+
+        @include _350{
+            grid-template-columns: repeat(2, 150px);
+            grid-template-rows: repeat(4, 150px);
         }
 
     }

@@ -204,6 +204,8 @@ button {
   width: 100%;
 }
 .forecast__future {
+  height: auto;
+  min-height: 250px;
   background: var(--linear-black);
   display: flex;
   flex-direction: column;
@@ -231,11 +233,17 @@ button {
   display: none;
   justify-content: center;
   width: 100%;
+  height: auto;
 }
 @media (max-width: 720px) {
   .forecast__future-button-up {
     display: flex;
   }
+}
+.forecast__future-button-up button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .forecast__future-button-up-shape {
   width: 48px;
@@ -273,12 +281,14 @@ button {
   justify-content: space-between;
   align-items: center;
   transition: transform 0.5s ease-in-out;
-  height: 330px;
+  height: 100%;
   width: 100%;
 }
 .forecast__future-cards-hourly {
+  height: 100%;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-around;
   flex-shrink: 0;
 }
@@ -294,6 +304,12 @@ button {
   border-radius: 30px;
   padding: 10px 0;
 }
+@media (max-width: 350px) {
+  .forecast__future-card {
+    width: 50px;
+    height: 145px;
+  }
+}
 .forecast__future-card--highlighted {
   background-color: var(--solid-purple);
 }
@@ -302,7 +318,6 @@ button {
 }
 .forecast__extra {
   background: var(--radial-bg-extra);
-  height: 100%;
   padding-top: 20px;
   width: 100%;
   height: 100%;
@@ -359,6 +374,12 @@ button {
   .forecast__extra-wrapper {
     grid-template-columns: repeat(2, 165px);
     grid-template-rows: repeat(4, 165px);
+  }
+}
+@media (max-width: 350px) {
+  .forecast__extra-wrapper {
+    grid-template-columns: repeat(2, 150px);
+    grid-template-rows: repeat(4, 150px);
   }
 }
 .forecast__extra-card {
